@@ -17,5 +17,10 @@ __pycache__
 ehthumbs.db
 Thumbs.db
 
+# R related #
+#############
 *.Rproj
+*.Rbuildignore
 .Rproj.user
+.Rhistory
+
