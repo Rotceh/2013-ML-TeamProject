@@ -1,0 +1,9 @@
+0.367 (+/-0.004) for {'C': 100, 'kernel': 'rbf', 'gamma': 1e-05}
+0.331 (+/-0.002) for {'C': 100, 'kernel': 'rbf', 'gamma': 0.0001}
+0.346 (+/-0.003) for {'C': 100, 'kernel': 'rbf', 'gamma': 0.001}
+0.328 (+/-0.003) for {'C': 1000, 'kernel': 'rbf', 'gamma': 1e-05}
+0.314 (+/-0.004) for {'C': 1000, 'kernel': 'rbf', 'gamma': 0.0001}
+0.340 (+/-0.001) for {'C': 1000, 'kernel': 'rbf', 'gamma': 0.001}
+0.308 (+/-0.005) for {'C': 10000, 'kernel': 'rbf', 'gamma': 1e-05}
+0.309 (+/-0.003) for {'C': 10000, 'kernel': 'rbf', 'gamma': 0.0001}
+0.340 (+/-0.001) for {'C': 10000, 'kernel': 'rbf', 'gamma': 0.001}

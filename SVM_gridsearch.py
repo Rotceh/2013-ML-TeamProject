@@ -15,28 +15,31 @@ X = df_train.iloc[:, 1:].values
 
 # set parameter for grid search
 parameters = {
-    'kernel': ['rbf'],
-    'C': [10 ** i for i in range(-3, 3)],
-    'gamma': [10 ** i for i in range(-8, 2)]
+    'kernel': ['poly'],
+    'C': [10 ** i for i in range(-7, 5)],
+    # 'gamma': [10 ** i for i in range(-5, -2)]
+    'degree': [i for i in range(2, 6)]
 }
 rbf_clf = svm.SVC()
+lin_clf = svm.LinearSVC()
+poly_clf = svm.SVC()
 
 train_X, test_X, train_Y, test_Y = train_test_split(
     X, Y, test_size=0.25, random_state=5
 )
 
-grid_cv = grid_search.GridSearchCV(rbf_clf, parameters, n_jobs=12, verbose=2)
+grid_cv = grid_search.GridSearchCV(poly_clf, parameters, n_jobs=14, verbose=2)
 
 # training
 grid_cv.fit(train_X, train_Y)
 # print best estimator
 
 print(
-    "\n\n\n>>>> [best parameter from grid searching] <<<<",
+    "\n\n\n>>>> [best parameter from grid searching] <<<<\n",
     grid_cv.best_estimator_,
     "\n\n\n"
 )
-with open("rbf_SVM_grid_result.txt", "w") as f:
+with open("poly_SVM_grid_result.txt", "w") as f:
     for params, mean_score, scores in grid_cv.grid_scores_:
         row_msg = (
             "%0.3f (+/-%0.03f) for %r"
