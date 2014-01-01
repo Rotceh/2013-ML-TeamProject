@@ -19,12 +19,13 @@ def add_missing_data_with_group_mean(one_group_label, one_group_df):
 
 if __name__ == '__main__':
     pass
-    
+
     import pandas as pd
-    
+
     CSV_TRAIN = "../dataset/train_zero_60x60.csv"
     df_part = pd.read_csv(CSV_TRAIN, nrows=6000).fillna(0)
     grouped = df_part.groupby("y")
+
     _filled_data = [add_missing_data_with_group_mean(one_group_label,one_group) for one_group_label,one_group in grouped ]
 
     filled_data = _filled_data[0]
@@ -164,4 +165,4 @@ if __name__ == '__main__':
     
     
     
-    
+
