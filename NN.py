@@ -4,9 +4,8 @@ import pandas as pd
 
 from pybrain.datasets            import ClassificationDataSet
 from pybrain.utilities           import percentError
-from pybrain.tools.shortcuts     import buildNetwork
 from pybrain.supervised.trainers import BackpropTrainer
-from pybrain.structure.modules   import SoftmaxLayer
+
 
 #############################################################################
 # [set Data]
@@ -15,7 +14,7 @@ from pybrain.structure.modules   import SoftmaxLayer
 #CSV_TEST = "dataset/test_na2zero.csv"
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 
-df_train = pd.read_csv(CSV_TRAIN, nrows=600)
+df_train = pd.read_csv(CSV_TRAIN)
 Y = df_train.y
 Y = Y -1 # in order to make target in the range of [0, 1, 2, 3, ...., 11]
 X = df_train.iloc[:, 1:].values
@@ -32,10 +31,6 @@ print "Number of training patterns: ", len(alldata)
 print "Input and output dimensions: ", alldata.indim, alldata.outdim
 print "First sample (input, target, class):"
 print alldata['input'][0], alldata['target'][0], alldata['class'][0]
-#############################################################################
-# [ fast NN ]
-#fnn = buildNetwork(trndata.indim, 60, trndata.outdim, outclass=SoftmaxLayer )
-#n = fnn
 
 #############################################################################
 # [set NN ]
@@ -72,13 +67,15 @@ n.sortModules()
 
 #############################################################################
 
-trainer = BackpropTrainer(n, dataset=alldata, learningrate=0.1, momentum=0.5, verbose=True, weightdecay=1)
+trainer = BackpropTrainer(n, dataset=alldata, learningrate=0.01, momentum=0.1, verbose=True, weightdecay=1)
 trainer.trainEpochs(3)
 allresult = percentError(trainer.trainUntilConvergence(),
                          alldata['class'])
 print("epoch: %4d" % trainer.totalepochs,
       "  train error: %5.2f%%" % allresult)
 
-pdb.set_trace()
+#with open("NN_result.txt","w+"):
+#    pass
+
 
 ####################################################
