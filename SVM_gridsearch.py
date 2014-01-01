@@ -32,7 +32,7 @@ train_X, test_X, train_Y, test_Y = train_test_split(
 )
 
 for clf, param in zip((svm_clf, lin_clf), param_list):
-    grid_cv = grid_search.GridSearchCV(clf, param, n_jobs=14, verbose=1)
+    grid_cv = grid_search.GridSearchCV(clf, param, n_jobs=16, verbose=1)
 
     # training
     grid_cv.fit(train_X, train_Y)
