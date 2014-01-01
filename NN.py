@@ -2,8 +2,8 @@ __author__ = 'Yhchou'
 import pdb
 import pandas as pd
 
-from pybrain.datasets            import ClassificationDataSet
-from pybrain.utilities           import percentError
+from pybrain.datasets import ClassificationDataSet
+from pybrain.utilities import percentError
 from pybrain.supervised.trainers import BackpropTrainer
 
 
@@ -13,17 +13,19 @@ from pybrain.supervised.trainers import BackpropTrainer
 #CSV_TRAIN = "dataset/train_na2zero.csv"
 #CSV_TEST = "dataset/test_na2zero.csv"
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
+CSV_TEST = "dataset/test_zero_60x60.csv"
 
-df_train = pd.read_csv(CSV_TRAIN, nrows=120)
+df_train = pd.read_csv(CSV_TRAIN)
 Y = df_train.y
 Y = Y -1 # in order to make target in the range of [0, 1, 2, 3, ...., 11]
 X = df_train.iloc[:, 1:].values
 
+df_test = pd.read_csv(CSV_TEST, nrows=120)
+test_X = df_test.iloc[:, 1:].values
 
 alldata = ClassificationDataSet(inp=X.shape[1], target=1, nb_classes=12)
 for i in range(len(Y)):
     alldata.addSample(X[i, :], [Y[i]])
-
 alldata._convertToOneOfMany()
 
 
@@ -40,10 +42,10 @@ n = FeedForwardNetwork()
 #  set layer type
 inLayer = LinearLayer(alldata.indim, name="input")
 outLayer = LinearLayer(alldata.outdim, name="output")
-N_LAYER = 3
+N_LAYER = 1
 hiddenLayers = list()
 for ii in range(N_LAYER):
-    node = 10*(N_LAYER-ii)
+    node = 1000 #10*(N_LAYER-ii)
     hiddenLayers.append(SigmoidLayer(node, name="hidden%s" % (ii+1)))
 
 #  add neural
@@ -68,9 +70,10 @@ n.sortModules()
 #############################################################################
 
 trainer = BackpropTrainer(n, dataset=alldata, learningrate=0.01, momentum=0.1, verbose=True, weightdecay=1)
-model = trainer.trainUntilConvergence(maxEpochs=500)
+model = trainer.trainUntilConvergence(maxEpochs=1)
 print("[ the best parameter for minimal validation error]", n.params)
-allresult = percentError(model,alldata['class'])
+print(trainer.testOnClassData(alldata))
+allresult = percentError(trainer.testOnClassData(dataset = alldata) ,alldata['class'])
 print("  train error: %5.2f%%" % allresult)
 
 import pdb
