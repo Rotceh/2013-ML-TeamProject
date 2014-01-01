@@ -4,7 +4,7 @@ CSV_RAW_TRAIN = "dataset/train_na2zero.csv"
 CSV_RAW_TEST = "dataset/test_na2zero.csv"
 CSV_60x60_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_60x60_TEST = "dataset/test_zero_60x60.csv"
-
+CSV_60x60addmean_TRAIN = "dataset/train_60x60_bw_addmean.csv"
 
 def get_train_test_suite(suite_name="raw"):
     """Return df_train, df_test, train_Y, train_X, test_Y, test_X in order.
@@ -14,13 +14,16 @@ def get_train_test_suite(suite_name="raw"):
     Parameters
     ==========
     suite_name : "raw", suite
-        expect "raw", "60x60"
+        expect "raw", "60x60", "60x60addmean"
     """
     if suite_name.lower() == "raw":
         CSV_TRAIN = CSV_RAW_TRAIN
         CSV_TEST = CSV_RAW_TEST
     elif suite_name.lower() == "60x60":
         CSV_TRAIN = CSV_60x60_TRAIN
+        CSV_TEST = CSV_60x60_TEST
+    elif suite_name.lower() == "60x60addmean":
+        CSV_TRAIN = CSV_60x60addmean_TRAIN
         CSV_TEST = CSV_60x60_TEST
     else:
         raise ValueError(
