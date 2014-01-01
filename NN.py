@@ -14,7 +14,7 @@ from pybrain.supervised.trainers import BackpropTrainer
 #CSV_TEST = "dataset/test_na2zero.csv"
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 
-df_train = pd.read_csv(CSV_TRAIN)
+df_train = pd.read_csv(CSV_TRAIN, nrows=120)
 Y = df_train.y
 Y = Y -1 # in order to make target in the range of [0, 1, 2, 3, ...., 11]
 X = df_train.iloc[:, 1:].values
@@ -43,7 +43,7 @@ outLayer = LinearLayer(alldata.outdim, name="output")
 N_LAYER = 3
 hiddenLayers = list()
 for ii in range(N_LAYER):
-    node = 1000
+    node = 10*(N_LAYER-ii)
     hiddenLayers.append(SigmoidLayer(node, name="hidden%s" % (ii+1)))
 
 #  add neural
@@ -68,14 +68,13 @@ n.sortModules()
 #############################################################################
 
 trainer = BackpropTrainer(n, dataset=alldata, learningrate=0.01, momentum=0.1, verbose=True, weightdecay=1)
-trainer.trainEpochs(3)
-allresult = percentError(trainer.trainUntilConvergence(),
-                         alldata['class'])
-print("epoch: %4d" % trainer.totalepochs,
-      "  train error: %5.2f%%" % allresult)
+model = trainer.trainUntilConvergence(maxEpochs=500)
+print("[ the best parameter for minimal validation error]", n.params)
+allresult = percentError(model,alldata['class'])
+print("  train error: %5.2f%%" % allresult)
 
-#with open("NN_result.txt","w+"):
-#    pass
+import pdb
+pdb.set_trace()
 
 
 ####################################################
