@@ -32,6 +32,7 @@ def predictOnData(test_X):
     for row in range(test_X.shape[0]):
         answer = numpy.argmax(n.activate(test_X[row, :]))
         answerlist.append(answer)
+    pdb.set_trace()
     return answerlist
 
 def NN_Report():
@@ -73,10 +74,10 @@ t0 = time.time()
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_TEST = "dataset/test_zero_60x60.csv"
-NROWS = 6000
+NROWS = 12
 
 N_LAYER = 2 # hand-defined
-N_NEURAL = str([20,20]) # hand-defined
+N_NEURAL = str([10,10]) # hand-defined
 LEARNING_RATE = 0.005
 MOMENTUM = 0.1
 WEIGHTDECAY = 0.01
@@ -94,7 +95,7 @@ df_test = pd.read_csv(CSV_TEST)
 test_X = df_test.iloc[:, 1:].values
 
 alldata = makeClassificationDataSet(X,Y,nb_classes=12)# make dataset
-n = buildNetwork(alldata.indim, 20, 20,  alldata.outdim, outclass=SoftmaxLayer, bias=True)# set Neural Network
+n = buildNetwork(alldata.indim, 10, 10,  alldata.outdim, outclass=SoftmaxLayer, bias=True)# set Neural Network
 trainer = BackpropTrainer(n, dataset=alldata, learningrate=LEARNING_RATE, momentum=MOMENTUM, verbose=True, weightdecay=WEIGHTDECAY)# train- set error  mode
 trainer.trainUntilConvergence(maxEpochs=MAX_EPOCHS, validationProportion=VALIDATION_PROPORTION)# train
 predictedVals = trainer.testOnClassData(dataset=alldata)# set
@@ -114,7 +115,7 @@ report = NN_Report()
 print(report)
 with open("NN_result(%s).txt" % START_TIME,"w+") as f:
     f.writelines("[predicted y]")
-    f.write(str([y+1 for y in answerlist]).split("[")[1].split("]")[0]) # because of Y=Y-1 before
+    f.write(str([y+1 for y in answerlist])) # because of Y=Y-1 before
     f.write("\n#############################\n")
     f.writelines(report)
 NetworkWriter.writeToFile(n, "NN_model(%s).xml" % START_TIME)
