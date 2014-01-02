@@ -34,5 +34,7 @@ def resize_60x60(
     # threshold
     if bw_threshold > 0:
         img_threshold = (img_6060 >= bw_threshold).astype('int')
+    else:
+        img_threshold = img_6060
 
     return img_threshold
