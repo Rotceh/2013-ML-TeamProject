@@ -37,13 +37,13 @@ print alldata['input'][0], alldata['target'][0], alldata['class'][0]
 
 #############################################################################
 # fnn
-n = buildNetwork(alldata.indim, 1000, 100, 10,  alldata.outdim, outclass=SoftmaxLayer, bias=True)
+n = buildNetwork(alldata.indim, 10, 10, 10,  alldata.outdim, outclass=SoftmaxLayer, bias=True)
 print(n)
 
 #############################################################################
 
 trainer = BackpropTrainer(n, dataset=alldata, learningrate=0.01, momentum=0.1, verbose=True, weightdecay=0.01)
-model = trainer.trainUntilConvergence(maxEpochs=200, validationProportion=0.25)
+model = trainer.trainUntilConvergence(maxEpochs=10, validationProportion=0.25)
 print("[ the best parameter for minimal validation error]", n.params)
 print( trainer.testOnClassData(alldata) )
 allresult = percentError(trainer.testOnClassData(dataset = alldata) ,alldata['class'])
@@ -53,12 +53,15 @@ print("  train error: %5.2f%%" % allresult)
 import numpy
 print "Predicting with the neural network"
 answerlist = []
-
 for row in range(test_X.shape[0]):
     answer = numpy.argmax(n.activate(test_X[row, :]))
     answerlist.append(answer)
-
 print(answerlist)
+
+with open("NN_result.txt","w+") as f:
+    f.write(str(answerlist))
+
+
 
 
 
