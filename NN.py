@@ -5,8 +5,8 @@ import pandas as pd
 from pybrain.datasets import ClassificationDataSet
 from pybrain.utilities import percentError
 from pybrain.supervised.trainers import BackpropTrainer
-
-
+from pybrain.tools.shortcuts     import buildNetwork
+from pybrain.structure.modules   import SoftmaxLayer
 #############################################################################
 # [set Data]
 
@@ -20,7 +20,7 @@ Y = df_train.y
 Y = Y -1 # in order to make target in the range of [0, 1, 2, 3, ...., 11]
 X = df_train.iloc[:, 1:].values
 
-df_test = pd.read_csv(CSV_TEST, nrows=120)
+df_test = pd.read_csv(CSV_TEST, nrows=1200)
 test_X = df_test.iloc[:, 1:].values
 
 alldata = ClassificationDataSet(inp=X.shape[1], target=1, nb_classes=12)
@@ -35,42 +35,14 @@ print "First sample (input, target, class):"
 print alldata['input'][0], alldata['target'][0], alldata['class'][0]
 
 #############################################################################
-# [set NN ]
-from pybrain.structure import FeedForwardNetwork, LinearLayer, SigmoidLayer, FullConnection
-n = FeedForwardNetwork()
-
-#  set layer type
-inLayer = LinearLayer(alldata.indim, name="input")
-outLayer = LinearLayer(alldata.outdim, name="output")
-N_LAYER = 1
-hiddenLayers = list()
-for ii in range(N_LAYER):
-    node = 1000 #10*(N_LAYER-ii)
-    hiddenLayers.append(SigmoidLayer(node, name="hidden%s" % (ii+1)))
-
-#  add neural
-n.addInputModule(inLayer)
-n.addOutputModule(outLayer)
-[n.addModule(hiddenLayer) for hiddenLayer in hiddenLayers]
-
-#  set the the the way how we connect neurals
-connection_Map = list()
-connection_Map.append(FullConnection(inLayer, hiddenLayers[0]))
-for ii in range(N_LAYER-1): # -1 because the last one doesn't link to any hidden layer but connect to output layer
-    connection_Map.append(FullConnection(hiddenLayers[ii],hiddenLayers[ii+1]))
-connection_Map.append(FullConnection(hiddenLayers[N_LAYER-1], outLayer))
-
-# build Network: set connection
-[n.addConnection(layer_connection) for layer_connection in connection_Map]
-
-# deploy: make MLP useful
-n.sortModules()
-#pdb.set_trace()
+# fnn
+n = buildNetwork(alldata.indim, 20,20, alldata.outdim, outclass=SoftmaxLayer, bias=True)
+print(n)
 
 #############################################################################
 
-trainer = BackpropTrainer(n, dataset=alldata, learningrate=0.01, momentum=0.1, verbose=True, weightdecay=1)
-model = trainer.trainUntilConvergence(maxEpochs=1)
+trainer = BackpropTrainer(n, dataset=alldata, learningrate=0.01, momentum=0.1, verbose=True, weightdecay=0.01)
+model = trainer.trainUntilConvergence(maxEpochs=5, validationProportion=0.25)
 print("[ the best parameter for minimal validation error]", n.params)
 print(trainer.testOnClassData(alldata))
 allresult = percentError(trainer.testOnClassData(dataset = alldata) ,alldata['class'])
