@@ -11,6 +11,7 @@ from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.shortcuts     import buildNetwork
 from pybrain.structure.modules   import SoftmaxLayer
 from pybrain.tools.customxml.networkwriter import NetworkWriter
+from sklearn.metrics import precision_score,recall_score,confusion_matrix
 
 def makeClassificationDataSet(X, Y, nb_classes=12):
     """ dim(X) = c(n,m)
@@ -57,6 +58,9 @@ def NN_Report():
     "#4 Validation",
     "[ predicted value for train data]",predictedVals,
     " [train error] %5.2f%%" % trainerror,
+    "[The precision ]"+str(precision_score(alldata['class'],predictedVals)),
+    "[The recall ] "+str(recall_score(alldata['class'],predictedVals)),
+    "[confusion matrix]"+str(confusion_matrix(alldata['class'],predictedVals),
     "---------------------------------------",
     "#5 Prediction",
     "[ predicted value for test data]",answerlist]
@@ -69,10 +73,10 @@ t0 = time.time()
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_TEST = "dataset/test_zero_60x60.csv"
-NROWS = 12
+NROWS = 300
 
-N_LAYER = 3 # hand-defined
-N_NEURAL = str([1000,1000,1000]) # hand-defined
+N_LAYER = 2 # hand-defined
+N_NEURAL = str([20,20]) # hand-defined
 LEARNING_RATE = 0.005
 MOMENTUM = 0.1
 WEIGHTDECAY = 0.01
@@ -90,12 +94,16 @@ df_test = pd.read_csv(CSV_TEST)
 test_X = df_test.iloc[:, 1:].values
 
 alldata = makeClassificationDataSet(X,Y,nb_classes=12)# make dataset
-n = buildNetwork(alldata.indim, 1000, 1000, 1000,  alldata.outdim, outclass=SoftmaxLayer, bias=True)# set Neural Network
+n = buildNetwork(alldata.indim, 20, 20,  alldata.outdim, outclass=SoftmaxLayer, bias=True)# set Neural Network
 trainer = BackpropTrainer(n, dataset=alldata, learningrate=LEARNING_RATE, momentum=MOMENTUM, verbose=True, weightdecay=WEIGHTDECAY)# train- set error  mode
 trainer.trainUntilConvergence(maxEpochs=MAX_EPOCHS, validationProportion=VALIDATION_PROPORTION)# train
 predictedVals = trainer.testOnClassData(dataset=alldata)# set
 trainerror = percentError(predictedVals ,alldata['class'])# validation
 
+print("The precision is "+str(precision_score(alldata['class'],predictedVals)))
+print("The recall is "+str(recall_score(alldata['class'],predictedVals)))
+print("The confusion matrix is as shown below:")
+print(confusion_matrix(alldata['class'],predictedVals))
 # prediction
 answerlist = predictOnData(test_X)
 
