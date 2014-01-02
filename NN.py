@@ -74,7 +74,7 @@ t0 = time.time()
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_TEST = "dataset/test_zero_60x60.csv"
-NROWS = 12
+NROWS = 6000
 
 N_LAYER = 2 # hand-defined
 N_NEURAL = str([10,10]) # hand-defined
@@ -95,7 +95,7 @@ df_test = pd.read_csv(CSV_TEST)
 test_X = df_test.iloc[:, 1:].values
 
 alldata = makeClassificationDataSet(X,Y,nb_classes=12)# make dataset
-n = buildNetwork(alldata.indim, 10, 10,  alldata.outdim, outclass=SoftmaxLayer, bias=True)# set Neural Network
+n = buildNetwork(alldata.indim, 20, 20,  alldata.outdim, outclass=SoftmaxLayer, bias=True)# set Neural Network
 trainer = BackpropTrainer(n, dataset=alldata, learningrate=LEARNING_RATE, momentum=MOMENTUM, verbose=True, weightdecay=WEIGHTDECAY)# train- set error  mode
 trainer.trainUntilConvergence(maxEpochs=MAX_EPOCHS, validationProportion=VALIDATION_PROPORTION)# train
 predictedVals = trainer.testOnClassData(dataset=alldata)# set
