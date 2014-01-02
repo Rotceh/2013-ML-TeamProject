@@ -35,7 +35,7 @@ def predictOnData(test_X):
     return answerlist
 
 def NN_Report():
-    line = ["[START_TIME]" , START_TIME,"[END_TIME]",END_TIME,
+    line = ["\n","[START_TIME]" , START_TIME,"[END_TIME]",END_TIME,
     "---------------------------------------",
     "#1 Data Description",
     "[Number of training patterns] ", len(alldata),
@@ -59,11 +59,11 @@ def NN_Report():
     "[ predicted value for train data]",predictedVals,
     " [train error] %5.2f%%" % trainerror,
     "[The precision ]"+str(precision_score(alldata['class'],predictedVals)),
-    "[The recall ] "+str(recall_score(alldata['class'],predictedVals)),
-    "[confusion matrix]"+str(confusion_matrix(alldata['class'],predictedVals),
+    "[The recall ] "+ str(recall_score(alldata['class'],predictedVals)),
+    "[confusion matrix]", str(confusion_matrix(alldata['class'],predictedVals)),
     "---------------------------------------",
     "#5 Prediction",
-    "[ predicted value for test data]",answerlist]
+    "[ predicted value for test data]", answerlist ]
 
     s = [ str(li) for li in line]
     return "\n".join(s)
@@ -73,7 +73,7 @@ t0 = time.time()
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_TEST = "dataset/test_zero_60x60.csv"
-NROWS = 300
+NROWS = 6000
 
 N_LAYER = 2 # hand-defined
 N_NEURAL = str([20,20]) # hand-defined
@@ -100,10 +100,6 @@ trainer.trainUntilConvergence(maxEpochs=MAX_EPOCHS, validationProportion=VALIDAT
 predictedVals = trainer.testOnClassData(dataset=alldata)# set
 trainerror = percentError(predictedVals ,alldata['class'])# validation
 
-print("The precision is "+str(precision_score(alldata['class'],predictedVals)))
-print("The recall is "+str(recall_score(alldata['class'],predictedVals)))
-print("The confusion matrix is as shown below:")
-print(confusion_matrix(alldata['class'],predictedVals))
 # prediction
 answerlist = predictOnData(test_X)
 
@@ -119,7 +115,7 @@ print(report)
 with open("NN_result(%s).txt" % START_TIME,"w+") as f:
     f.writelines("[predicted y]")
     f.write(str([y+1 for y in answerlist]).split("[")[1].split("]")[0]) # because of Y=Y-1 before
-    f.write("#############################")
+    f.write("\n#############################\n")
     f.writelines(report)
 NetworkWriter.writeToFile(n, "NN_model(%s).xml" % START_TIME)
 
