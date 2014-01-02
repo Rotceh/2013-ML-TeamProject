@@ -10,7 +10,12 @@ from pybrain.utilities import percentError
 from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.shortcuts     import buildNetwork
 from pybrain.structure.modules   import SoftmaxLayer
-from pybrain.tools.customxml.networkwriter import NetworkWriter
+try:
+    from pybrain.tools.customxml.networkwriter import NetworkWriter
+except ImportError as e:
+    print("chang xml module")
+    from pybrain.tools.xml.networkwriter import NetworkWriter
+
 from sklearn.metrics import precision_score,recall_score,confusion_matrix
 
 def makeClassificationDataSet(X, Y, nb_classes=12):
