@@ -64,7 +64,7 @@ print("\n[Predicting with the neural network]\n",
 import datetime
 time_info = str(datetime.datetime.now())
 modified_y = str([y+1 for y in answerlist]).split("[")[1].split("]")[0]
-with open("NN_result(%s).txt"%time_info[0],"w+") as f:
+with open("NN1000_result(%s).txt"%time_info[0],"w+") as f:
     f.write(modified_y) # because of Y=Y-1 before
 
 
