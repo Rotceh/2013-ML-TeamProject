@@ -77,7 +77,7 @@ CSV_TEST = "dataset/test_zero_60x60.csv"
 NROWS = 6000
 
 N_LAYER = 2 # hand-defined
-N_NEURAL = str([10,10]) # hand-defined
+N_NEURAL = str([20,20]) # hand-defined
 LEARNING_RATE = 0.005
 MOMENTUM = 0.1
 WEIGHTDECAY = 0.01
