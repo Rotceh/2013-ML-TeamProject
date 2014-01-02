@@ -28,8 +28,6 @@ alldata._convertToOneOfMany()
 df_test = pd.read_csv(CSV_TEST)
 test_X = df_test.iloc[:, 1:].values
 
-
-
 print "Number of training patterns: ", len(alldata)
 print "Input and output dimensions: ", alldata.indim, alldata.outdim
 print "First sample (input, target, class):"
@@ -37,29 +35,37 @@ print alldata['input'][0], alldata['target'][0], alldata['class'][0]
 
 #############################################################################
 # fnn
-n = buildNetwork(alldata.indim, 10, 10, 10,  alldata.outdim, outclass=SoftmaxLayer, bias=True)
-print(n)
+n = buildNetwork(alldata.indim, 1000, 100, 10, alldata.outdim, outclass=SoftmaxLayer, bias=True)
+print("\n[ Network Structure]\n",n)
 
 #############################################################################
 
-trainer = BackpropTrainer(n, dataset=alldata, learningrate=0.01, momentum=0.1, verbose=True, weightdecay=0.01)
-model = trainer.trainUntilConvergence(maxEpochs=10, validationProportion=0.25)
-print("[ the best parameter for minimal validation error]", n.params)
-print( trainer.testOnClassData(alldata) )
-allresult = percentError(trainer.testOnClassData(dataset = alldata) ,alldata['class'])
-print("  train error: %5.2f%%" % allresult)
+trainer = BackpropTrainer(n, dataset=alldata, learningrate=0.005, momentum=0.1, verbose=True, weightdecay=0.01)
+model = trainer.trainUntilConvergence(maxEpochs=500, validationProportion=0.25)
+print("\n[ the best parameter for minimal validation error]\n", n.params)
+predictedVals = trainer.testOnClassData(dataset=alldata)
+allresult = percentError(predictedVals ,alldata['class'])
+print("\n[ predicted value for train data]\n",
+      predictedVals,
+      " \n[train error] %5.2f%%" % allresult)
 
-##
+### test data
 import numpy
-print "Predicting with the neural network"
-answerlist = []
+answerlist = list()
 for row in range(test_X.shape[0]):
     answer = numpy.argmax(n.activate(test_X[row, :]))
     answerlist.append(answer)
-print(answerlist)
+print("\n[Predicting with the neural network]\n",
+      "\n[ predicted value for test data]\n",
+      answerlist)
 
-with open("NN_result.txt","w+") as f:
-    f.write(str(answerlist))
+
+# save result inot csv
+import datetime
+time_info = str(datetime.datetime.now())
+modified_y = str([y+1 for y in answerlist]).split("[")[1].split("]")[0]
+with open("NN_result(%s).txt"%time_info[0],"w+") as f:
+    f.write(modified_y) # because of Y=Y-1 before
 
 
 
