@@ -37,7 +37,6 @@ def predictOnData(test_X):
     for row in range(test_X.shape[0]):
         answer = numpy.argmax(n.activate(test_X[row, :]))
         answerlist.append(answer)
-    pdb.set_trace()
     return answerlist
 
 def NN_Report():
@@ -79,7 +78,7 @@ t0 = time.time()
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_TEST = "dataset/test_zero_60x60.csv"
-NROWS = 6000
+NROWS = 6145 # MAX   = 6145
 
 N_LAYER = 2 # hand-defined
 N_NEURAL = str([20,20]) # hand-defined
@@ -116,6 +115,7 @@ print("[Total Time]")
 print(t1-t0)
 
 # report
+NetworkWriter.writeToFile(n, "NN_model(%s).xml" % START_TIME)
 report = NN_Report()
 print(report)
 with open("NN_result(%s).txt" % START_TIME,"w+") as f:
@@ -123,7 +123,7 @@ with open("NN_result(%s).txt" % START_TIME,"w+") as f:
     f.write(str([y+1 for y in answerlist])) # because of Y=Y-1 before
     f.write("\n#############################\n")
     f.writelines(report)
-NetworkWriter.writeToFile(n, "NN_model(%s).xml" % START_TIME)
+
 
 
 
