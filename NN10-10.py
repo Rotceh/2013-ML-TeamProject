@@ -1,5 +1,5 @@
 __author__ = 'Yhchou'
-import pdb
+import pdb, sys
 import pandas as pd
 import numpy
 import time
@@ -44,14 +44,6 @@ def transdata(data):
     return map(lambda x: x[0], data)
 
 def NN_Report():
-    print predictedVals
-    print transdata(alldata['class'])
-    print 'sql------'
-    #print prepredictedVals.shape
-    #print predictedVals.flatten()
-    print 'sql------'
-    exit()
-
     line = ["\n","[START_TIME]" , START_TIME,"[END_TIME]",END_TIME,
     "---------------------------------------",
     "#1 Data Description",
@@ -89,11 +81,15 @@ t0 = time.time()
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
 
 
+#####################################
+# parse cmd
+container = [int(char) for char in sys.argv[1:]]
+NROWS = container[0]
+N_NEURAL = container[1:]
+
 ##################################################################
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_TEST = "dataset/test_zero_60x60.csv"
-NROWS = 600 # MAX   = 6145
-####################################################################
 #  data preprocessed
 df_train = pd.read_csv(CSV_TRAIN, nrows=NROWS)
 X = df_train.iloc[:, 1:].values
@@ -107,8 +103,6 @@ alldata = makeClassificationDataSet(X,Y,nb_classes=12)# make dataset
 
 #####################################
 #Model settings
-N_NEURAL = [128, 64, 32, 16, 8, 4, 2]
-#N_NEURAL = [10, 10]
 DIM_LAYER = [alldata.indim] + N_NEURAL + [alldata.outdim]
 NETWORK_SETTINGS = {"outclass": SoftmaxLayer, "bias":True}
 N_HIDDEN_LAYER = len(N_NEURAL)
@@ -130,19 +124,21 @@ answerlist = predictOnData(test_X)
 
 ####################################################################
 END_TIME = "-".join(str(datetime.datetime.now()).split(":"))
-t1=time.time()
+t1 = time.time()
+
 
 # report
 report = NN_Report()
 print(report)
-with open("NN_result(%s).txt" % START_TIME,"w+") as f:
+filename = "NN%sn%s" % (str(NROWS), "x".join([str(nn) for nn in N_NEURAL]))
+with open(filename+".txt", "w+") as f:
     f.writelines("[predicted y]")
     f.write(str([y+1 for y in answerlist])) # because of Y=Y-1 before
     f.write("\n#############################\n")
     f.writelines(report)
     f.writelines("\n[Total time]\n")
-    f.writelines(t1-t0)
-NetworkWriter.writeToFile(n, "NN_model(%s).xml" % START_TIME)
+    f.writelines(str(t1-t0))
+NetworkWriter.writeToFile(n, filename+".xml")
 
 
 
