@@ -51,7 +51,7 @@ def NN_Report():
     n,
     "---------------------------------------",
     "#3 Training Info",
-    "[N_LAYER]", N_LAYER,
+    "[N_HIDDEN_LAYER]", N_HIDDEN_LAYER,
     "[N_NEURAL]", N_NEURAL,
     "[LEARNING_RATE]", LEARNING_RATE,
     "[MOMENTUM]",MOMENTUM,
@@ -63,33 +63,26 @@ def NN_Report():
     "#4 Validation",
     "[ predicted value for train data]",predictedVals,
     " [train error] %5.2f%%" % trainerror,
-    "[The precision ]"+str(precision_score(alldata['class'],predictedVals)),
-    "[The recall ] "+ str(recall_score(alldata['class'],predictedVals)),
-    "[confusion matrix]", str(confusion_matrix(alldata['class'],predictedVals)),
+    "[The precision ]", precision_score(alldata['class'],predictedVals),
+    "[The recall ] ", recall_score(alldata['class'],predictedVals),
+    "[confusion matrix]", confusion_matrix(alldata['class'],predictedVals),
     "---------------------------------------",
     "#5 Prediction",
     "[ predicted value for test data]", answerlist ]
 
-    s = [ str(li) for li in line]
+    s = [str(li) for li in line]
     return "\n".join(s)
 
 t0 = time.time()
-##################################################################
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
+
+
+##################################################################
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_TEST = "dataset/test_zero_60x60.csv"
-NROWS = 600 # MAX   = 6145
-
-N_LAYER = 2 # hand-defined
-N_NEURAL = str([10,10]) # hand-defined
-LEARNING_RATE = 0.005
-MOMENTUM = 0.5
-WEIGHTDECAY = 0.01
-MAX_EPOCHS = 1000
-VALIDATION_PROPORTION = 0.1
+NROWS = 12 # MAX   = 6145
 ####################################################################
 #  data preprocessed
-
 df_train = pd.read_csv(CSV_TRAIN, nrows=NROWS)
 X = df_train.iloc[:, 1:].values
 Y = df_train.y
@@ -99,7 +92,21 @@ df_test = pd.read_csv(CSV_TEST)
 test_X = df_test.iloc[:, 1:].values
 
 alldata = makeClassificationDataSet(X,Y,nb_classes=12)# make dataset
-n = buildNetwork(alldata.indim, 10, 10,  alldata.outdim, outclass=SoftmaxLayer, bias=True)# set Neural Network
+
+#####################################
+#Model settings
+DIM_LAYER = [alldata.indim, 10, 10,  alldata.outdim]
+NETWORK_SETTINGS = {"outclass": SoftmaxLayer, "bias":True}
+N_HIDDEN_LAYER = len(DIM_LAYER)-2
+N_NEURAL = DIM_LAYER[1:N_HIDDEN_LAYER+1]
+
+LEARNING_RATE = 0.005
+MOMENTUM = 0.5
+WEIGHTDECAY = 0.01
+MAX_EPOCHS = 1000
+VALIDATION_PROPORTION = 0.1
+#####################################
+n = buildNetwork(*DIM_LAYER, **NETWORK_SETTINGS)# set Neural Network
 trainer = BackpropTrainer(n, dataset=alldata, learningrate=LEARNING_RATE, momentum=MOMENTUM, verbose=True, weightdecay=WEIGHTDECAY)# train- set error  mode
 trainer.trainUntilConvergence(maxEpochs=MAX_EPOCHS, validationProportion=VALIDATION_PROPORTION)# train
 predictedVals = trainer.testOnClassData(dataset=alldata)# set
