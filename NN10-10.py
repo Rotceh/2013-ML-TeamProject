@@ -72,7 +72,7 @@ def NN_Report():
     "[confusion matrix]", confusion_matrix(transdata(alldata['class']),predictedVals),
     "---------------------------------------",
     "#5 Prediction",
-    "[ predicted value for test data]", answerlist ]
+    "[ predicted value for test data]", predictedVals2Raw ]
 
     s = [str(li) for li in line]
     return "\n".join(s)
@@ -131,9 +131,10 @@ t1 = time.time()
 report = NN_Report()
 print(report)
 filename = "NN%sn%s" % (str(NROWS), "x".join([str(nn) for nn in N_NEURAL]))
+predictedVals2Raw = [y+1 for y in answerlist]
 with open(filename+".txt", "w+") as f:
     f.writelines("[predicted y]")
-    f.write(str([y+1 for y in answerlist])) # because of Y=Y-1 before
+    f.write(str(predictedVals2Raw)) # because of Y=Y-1 before
     f.write("\n#############################\n")
     f.writelines(report)
     f.writelines("\n[Total time]\n")
