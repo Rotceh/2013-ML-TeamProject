@@ -78,7 +78,7 @@ t0 = time.time()
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_TEST = "dataset/test_zero_60x60.csv"
-NROWS = 6145 # MAX   = 6145
+NROWS = 600 # MAX   = 6145
 
 N_LAYER = 2 # hand-defined
 N_NEURAL = str([20,20]) # hand-defined

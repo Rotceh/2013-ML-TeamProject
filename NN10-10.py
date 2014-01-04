@@ -37,7 +37,6 @@ def predictOnData(test_X):
     for row in range(test_X.shape[0]):
         answer = numpy.argmax(n.activate(test_X[row, :]))
         answerlist.append(answer)
-    pdb.set_trace()
     return answerlist
 
 def NN_Report():
@@ -79,14 +78,14 @@ t0 = time.time()
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
 CSV_TRAIN = "dataset/train_zero_60x60.csv"
 CSV_TEST = "dataset/test_zero_60x60.csv"
-NROWS = 6000
+NROWS = 600 # MAX   = 6145
 
 N_LAYER = 2 # hand-defined
 N_NEURAL = str([10,10]) # hand-defined
 LEARNING_RATE = 0.005
-MOMENTUM = 0.1
+MOMENTUM = 0.5
 WEIGHTDECAY = 0.01
-MAX_EPOCHS = 500
+MAX_EPOCHS = 1000
 VALIDATION_PROPORTION = 0.1
 ####################################################################
 #  data preprocessed
