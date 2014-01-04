@@ -1,2 +1,4 @@
 # CSV is large, don't include it in repo
 *.csv
+# DAT is large too, don't include them in repo
+*.dat

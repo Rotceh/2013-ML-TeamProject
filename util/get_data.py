@@ -45,3 +45,44 @@ def get_train_test_suite(suite_name="raw"):
     test_X = df_test.iloc[:, 1:].values
 
     return df_train, df_test, train_Y, train_X, test_Y, test_X
+
+
+def get_new_suite(suite_name="60x60grey"):
+
+    """Return df_train, df_test, train_Y, train_X, test_Y, test_X in order.
+
+    Create full train/test dataframe and X, Y matrix.
+    Train dataframe combined train and first half test data(with label).
+    Test dataframe will be the second half test data.
+
+    Parameters
+    ==========
+    suite_name : "60x60grey", str
+        expect "60x60grey"
+    """
+
+    norm_suite_name = suite_name.lower()
+
+    if norm_suite_name == "60x60grey":
+        CSV_TRAIN = "dataset/train_60x60_grey.csv"
+        CSV_LABEL_TEST = "dataset/test_60x60_grey.csv"
+        CSV_NEW_TEST = "dataset/newtest_60x60_grey.csv"
+    else:
+        raise ValueError(
+            "Unexpected suite_name: {}, cannot handle.".format(suite_name)
+        )
+
+    df_train = pd.concat([
+        pd.read_csv(CSV_TRAIN),
+        pd.read_csv(CSV_LABEL_TEST)
+    ])
+    df_test = pd.read_csv(CSV_NEW_TEST)
+
+    train_Y = df_train.y
+    train_X = df_train.iloc[:, 1:].values
+
+    test_Y = df_test.y
+    test_X = df_test.iloc[:, 1:].values
+
+    return df_train, df_test, train_Y, train_X, test_Y, test_X
+
