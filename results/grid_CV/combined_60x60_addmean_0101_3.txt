@@ -1,0 +1,308 @@
+
+
+
+>>>> [best parameter from grid searching] <<<<
+ SVC(C=0.01, cache_size=200, class_weight=None, coef0=0.0, degree=2,
+  gamma=1e-06, kernel=rbf, max_iter=-1, probability=False,
+  random_state=None, shrinking=True, tol=0.001, verbose=False) 
+
+
+
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 0.01, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 0.01, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 0.1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 0.1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 1, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 1, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 10, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 10, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 100, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 100, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 1000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 1000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 10000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 10000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 2, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 2, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 2, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 2, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 3, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 3, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 3, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 3, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-06, 'degree': 4, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 1e-05, 'degree': 4, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.0001, 'degree': 4, 'C': 100000, 'kernel': 'poly'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 100000, 'kernel': 'rbf'}
+0.000 (+/-0.000) for {'gamma': 0.001, 'degree': 4, 'C': 100000, 'kernel': 'poly'}
+
+
+
+>>>> [best parameter from grid searching] <<<<
+ LinearSVC(C=0.0001, class_weight=None, dual=True, fit_intercept=True,
+     intercept_scaling=1, loss=l2, multi_class=ovr, penalty=l2,
+     random_state=None, tol=0.0001, verbose=0) 
+
+
+
+0.000 (+/-0.000) for {'C': 0.0001}
+0.000 (+/-0.000) for {'C': 0.001}
+0.000 (+/-0.000) for {'C': 0.01}
+0.000 (+/-0.000) for {'C': 0.1}
+0.000 (+/-0.000) for {'C': 1}
+0.000 (+/-0.000) for {'C': 10}
+0.000 (+/-0.000) for {'C': 100}
+0.000 (+/-0.000) for {'C': 1000}
+0.000 (+/-0.000) for {'C': 10000}
+0.000 (+/-0.000) for {'C': 100000}
+0.000 (+/-0.000) for {'C': 1000000}
+
+
+
+>>>> [best parameter from grid searching] <<<<
+ LinearSVC(C=1, class_weight=None, dual=True, fit_intercept=True,
+     intercept_scaling=1, loss=l2, multi_class=ovr, penalty=l2,
+     random_state=None, tol=0.0001, verbose=0) 
+
+
+
+0.965 (+/-0.001) for {'C': 1}
+0.964 (+/-0.001) for {'C': 5}
+0.964 (+/-0.001) for {'C': 10}
+0.964 (+/-0.001) for {'C': 20}
+0.964 (+/-0.001) for {'C': 50}
+0.964 (+/-0.001) for {'C': 100}
+0.964 (+/-0.001) for {'C': 200}
+0.964 (+/-0.001) for {'C': 500}
+0.964 (+/-0.001) for {'C': 1000}
+
+
+
+>>>> [best parameter from grid searching] <<<<
+ SVC(C=100, cache_size=200, class_weight=None, coef0=0.0, degree=3,
+  gamma=0.001, kernel=rbf, max_iter=-1, probability=False,
+  random_state=None, shrinking=True, tol=0.001, verbose=False) 
+
+
+
+0.090 (+/-0.000) for {'gamma': 1, 'C': 1, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.5, 'C': 1, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.1, 'C': 1, 'kernel': 'rbf'}
+0.090 (+/-0.001) for {'gamma': 0.05, 'C': 1, 'kernel': 'rbf'}
+0.538 (+/-0.008) for {'gamma': 0.01, 'C': 1, 'kernel': 'rbf'}
+0.935 (+/-0.002) for {'gamma': 0.005, 'C': 1, 'kernel': 'rbf'}
+0.966 (+/-0.002) for {'gamma': 0.001, 'C': 1, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 1, 'C': 5, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.5, 'C': 5, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.1, 'C': 5, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.05, 'C': 5, 'kernel': 'rbf'}
+0.574 (+/-0.009) for {'gamma': 0.01, 'C': 5, 'kernel': 'rbf'}
+0.939 (+/-0.002) for {'gamma': 0.005, 'C': 5, 'kernel': 'rbf'}
+0.970 (+/-0.001) for {'gamma': 0.001, 'C': 5, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 1, 'C': 10, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.5, 'C': 10, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.1, 'C': 10, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.05, 'C': 10, 'kernel': 'rbf'}
+0.575 (+/-0.009) for {'gamma': 0.01, 'C': 10, 'kernel': 'rbf'}
+0.939 (+/-0.002) for {'gamma': 0.005, 'C': 10, 'kernel': 'rbf'}
+0.970 (+/-0.001) for {'gamma': 0.001, 'C': 10, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 1, 'C': 20, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.5, 'C': 20, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.1, 'C': 20, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.05, 'C': 20, 'kernel': 'rbf'}
+0.575 (+/-0.009) for {'gamma': 0.01, 'C': 20, 'kernel': 'rbf'}
+0.939 (+/-0.002) for {'gamma': 0.005, 'C': 20, 'kernel': 'rbf'}
+0.970 (+/-0.001) for {'gamma': 0.001, 'C': 20, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 1, 'C': 50, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.5, 'C': 50, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.1, 'C': 50, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.05, 'C': 50, 'kernel': 'rbf'}
+0.575 (+/-0.009) for {'gamma': 0.01, 'C': 50, 'kernel': 'rbf'}
+0.939 (+/-0.002) for {'gamma': 0.005, 'C': 50, 'kernel': 'rbf'}
+0.970 (+/-0.001) for {'gamma': 0.001, 'C': 50, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 1, 'C': 100, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.5, 'C': 100, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.1, 'C': 100, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.05, 'C': 100, 'kernel': 'rbf'}
+0.575 (+/-0.009) for {'gamma': 0.01, 'C': 100, 'kernel': 'rbf'}
+0.939 (+/-0.002) for {'gamma': 0.005, 'C': 100, 'kernel': 'rbf'}
+0.970 (+/-0.001) for {'gamma': 0.001, 'C': 100, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 1, 'C': 500, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.5, 'C': 500, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.1, 'C': 500, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.05, 'C': 500, 'kernel': 'rbf'}
+0.575 (+/-0.009) for {'gamma': 0.01, 'C': 500, 'kernel': 'rbf'}
+0.939 (+/-0.002) for {'gamma': 0.005, 'C': 500, 'kernel': 'rbf'}
+0.970 (+/-0.001) for {'gamma': 0.001, 'C': 500, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 1, 'C': 1000, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.5, 'C': 1000, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.1, 'C': 1000, 'kernel': 'rbf'}
+0.090 (+/-0.000) for {'gamma': 0.05, 'C': 1000, 'kernel': 'rbf'}
+0.575 (+/-0.009) for {'gamma': 0.01, 'C': 1000, 'kernel': 'rbf'}
+0.939 (+/-0.002) for {'gamma': 0.005, 'C': 1000, 'kernel': 'rbf'}
+0.970 (+/-0.001) for {'gamma': 0.001, 'C': 1000, 'kernel': 'rbf'}
