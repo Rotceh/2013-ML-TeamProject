@@ -44,43 +44,47 @@ def transdata(data):
     return map(lambda x: x[0], data)
 
 def NN_Report():
-    line = ["\n","[START_TIME]" , START_TIME,"[END_TIME]",END_TIME,
-    "---------------------------------------",
-    "#1 Data Description",
-    "[Number of training patterns] ", len(alldata),
-    "[Input and output dimensions] ", alldata.indim, alldata.outdim,
-    "[First sample (input, target, class)]", alldata['input'][0], alldata['target'][0], alldata['class'][0],
-    "---------------------------------------",
-    "#2 The structure of Network",
-    n,
-    "---------------------------------------",
-    "#3 Training Info",
-    "[N_HIDDEN_LAYER]", N_HIDDEN_LAYER,
-    "[N_NEURAL]", N_NEURAL,
-    "[LEARNING_RATE]", LEARNING_RATE,
-    "[MOMENTUM]",MOMENTUM,
-    "[WEIGHTDECAY]",WEIGHTDECAY,
-    "[MAX_EPOCHS]",MAX_EPOCHS,
-    "[VALIDATION_PROPORTION]",VALIDATION_PROPORTION,
-    "[ the best parameter for minimal validation error]", n.params,
-    "---------------------------------------",
-    "#4 Validation",
-    "[ predicted value for train data]",predictedVals,
-    " [train error] %5.2f%%" % trainerror,
-    "[The precision ]", precision_score(transdata(alldata['class']),predictedVals),
-    "[The recall ] ", recall_score(transdata(alldata['class']),predictedVals),
-    "[confusion matrix]", confusion_matrix(transdata(alldata['class']),predictedVals),
-    "---------------------------------------",
-    "#5 Prediction",
-    "[ predicted value for test data]", predictedVals2Raw ]
+    print("[START_TIME]" , START_TIME)
+    print("[END_TIME]",END_TIME)
+    print("[Total time]", t1-t0)
 
-    s = [str(li) for li in line]
-    return "\n".join(s)
+    print("---------------------------------------")
+    print("#1 Data Description")
+    print("[Number of training patterns] ", len(alldata))
+    print("[Input and output dimensions] ", "(",alldata.indim, ",", alldata.outdim, ")")
+    print("[First sample (input, target, class)]", alldata['input'][0], alldata['target'][0], alldata['class'][0])
+
+    print("---------------------------------------")
+    print("#2 The structure of Network")
+    print(n)
+
+    print("---------------------------------------")
+    print("#3 Training Info")
+    print("[N_HIDDEN_LAYER]", N_HIDDEN_LAYER)
+    print("[N_NEURAL]", N_NEURAL)
+    print("[LEARNING_RATE]", LEARNING_RATE)
+    print("[MOMENTUM]",MOMENTUM)
+    print("[WEIGHTDECAY]",WEIGHTDECAY)
+    print("[MAX_EPOCHS]",MAX_EPOCHS)
+    print("[VALIDATION_PROPORTION]",VALIDATION_PROPORTION)
+    print("[ the best parameter for minimal validation error]", n.params)
+
+    print("---------------------------------------")
+    print("#4 Validation")
+    print("[ predicted value for train data]", predictedVals)
+    print(" [train error] %5.2f%%" % trainerror)
+    print("[The precision ]", precision_score(transdata(alldata['class']),predictedVals))
+    print("[The recall ] ", recall_score(transdata(alldata['class']),predictedVals))
+    print("[confusion matrix]", confusion_matrix(transdata(alldata['class']),predictedVals))
+
+    print("---------------------------------------")
+    print("#5 Prediction")
+    print("[ predicted value for test data]", predictedVals2Raw)
+
+
 
 t0 = time.time()
 START_TIME = "-".join(str(datetime.datetime.now()).split(":"))
-
-
 #####################################
 # parse cmd
 container = [int(char) for char in sys.argv[1:]]
@@ -121,53 +125,14 @@ trainerror = percentError(predictedVals ,alldata['class'])# validation
 
 # prediction
 answerlist = predictOnData(test_X)
+predictedVals2Raw = [y+1 for y in answerlist]
 
 ####################################################################
 END_TIME = "-".join(str(datetime.datetime.now()).split(":"))
 t1 = time.time()
 
-
 # report
-predictedVals2Raw = [y+1 for y in answerlist]
-report = NN_Report()
 filename = "NN%sn%s" % (str(NROWS), "x".join([str(nn) for nn in N_NEURAL]))
-with open(filename+".txt", "w+") as f:
-    f.writelines("[predicted y]")
-    f.write(str(predictedVals2Raw)) # because of Y=Y-1 before
-    f.write("\n#############################\n")
-    f.writelines(report)
-    f.writelines("\n[Total time]\n")
-    f.writelines(str(t1-t0))
 NetworkWriter.writeToFile(n, filename+".xml")
-print(report)
+NN_Report()
 
-
-####################################################
-# def NN_Report():
-#     print("[Time]")
-#     print(time_info)
-#     print("---------------------------------------")
-#     print("#1 Data Description")
-#     print("[Number of training patterns] ", len(alldata))
-#     print("[Input and output dimensions] ", alldata.indim, alldata.outdim)
-#     print("[First sample (input, target, class)]")
-#     print(alldata['input'][0], alldata['target'][0], alldata['class'][0])
-#
-#     print("---------------------------------------")
-#     print("#2 The structure of Network")
-#     print(n)
-#
-#     print("---------------------------------------")
-#     print("#3 Training Info")
-#     print("[ the best parameter for minimal validation error]", n.params)
-#
-#     print("---------------------------------------")
-#     print("#4 Validation")
-#     print("[ predicted value for train data]")
-#     print(predictedVals)
-#     print(" [train error] %5.2f%%" % trainerror)
-#
-#     print("---------------------------------------")
-#     print("#5 Prediction")
-#     print("[ predicted value for test data]")
-#     print(answerlist)
