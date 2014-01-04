@@ -24,3 +24,16 @@ Thumbs.db
 .Rproj.user
 .Rhistory
 
+
+# eclipse related #
+###################
+.project
+.pydevproject
+
+# dataset related #
+###################
+out_test.csv
+train.csv
+test_na2zero.csv
+train_na2zero.csv
+img_dataset/
