@@ -51,7 +51,7 @@ def NN_Report():
     print("---------------------------------------")
     print("#1 Data Description")
     print("[Number of training patterns] ", len(alldata))
-    print("[Input and output dimensions] ", "(",alldata.indim, ",", alldata.outdim, ")")
+    print("[Input and output dimensions] ", alldata.indim, alldata.outdim)
     print("[First sample (input, target, class)]", alldata['input'][0], alldata['target'][0], alldata['class'][0])
 
     print("---------------------------------------")
