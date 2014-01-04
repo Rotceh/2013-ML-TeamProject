@@ -4,17 +4,15 @@ import pandas as pd
 import cv2
 import numpy as np
 
-from util.get_data import get_train_test_suite
+from util.get_data import get_new_suite
 
 SUITE_NAME = "60x60grey"
-df_train, df_test, train_Y, train_X, test_Y, test_X = get_train_test_suite(
-    suite_name=SUITE_NAME)
-
+df_train, df_test, train_Y, train_X, test_Y, test_X = get_new_suite()
 
 group_train = df_train.groupby("y")
 group_inst_ix = [v for v in group_train.groups.values()]
 
-
+test_ix_list = df_test.index
 # part_group_inst_ix = [group_inst_ix[0], group_inst_ix[3]]
 
 
@@ -33,12 +31,20 @@ zwd_inst_mat = [
     for ix_array, zwd in zip(group_inst_ix, range(1, 13))
 ]
 
+zwd_test_inst_mat = [
+    [Instance(ix=ix, zwd=0) for ix in test_ix_list]
+]
+
 
 PIXEL_X = 60
 PIXEL_Y = 60
 
 flatten_inst_arary = np.array(
     [inst for inst_array in zwd_inst_mat for inst in inst_array]
+)
+
+flatten_test_inst_arary = np.array(
+    [inst for inst_array in zwd_test_inst_mat for inst in inst_array]
 )
 
 
@@ -58,6 +64,8 @@ sift = cv2.SIFT(
     edgeThreshold=edgeThreshold
 )
 
+print("work on SIFT")
+
 def detect_SIFT(inst):
     inst.kp_list, inst.desc_list = sift.detectAndCompute(
         grey_convert(train_X[inst.ix].reshape(PIXEL_X, PIXEL_Y)),
@@ -65,9 +73,9 @@ def detect_SIFT(inst):
     )
 
 map(detect_SIFT, flatten_inst_arary)
+map(detect_SIFT, flatten_test_inst_arary)
 
-
-TOP_K = 10
+TOP_K = 20
 N_ZODIAC = 12
 out_dict = {'y': train_Y}
 # Top K columns
@@ -89,51 +97,77 @@ df_sift_train_out.columns = (
     mean_column_names
 )
 
-# FLANN Matcher
+df_sift_test_out = df_sift_train_out.copy()
+df_sift_test_out.y = 0
 
+# FLANN Matcher
 # FLANN parameters
 FLANN_INDEX_KDTREE = 0
 index_params = dict(algorithm=FLANN_INDEX_KDTREE, trees=5)
 search_params = dict(checks=100)   # or pass empty dictionary
-
 flann = cv2.FlannBasedMatcher(index_params, search_params)
 
+DISTANCE_TH = 270
 
-## TODO: 改良 knnMatch 不要全部會更快
-def zwd_inst_match(zwd_inst):
-    if zwd_inst.desc_list is None or len(zwd_inst.desc_list) < 1:
-        # print(zwd_inst.ix)
-        return 0
-    len_zwd_inst_features = len(zwd_inst.desc_list)
-    all_matches = flann.knnMatch(
-        inst.desc_list, zwd_inst.desc_list,
-        k=len_zwd_inst_features
-    )
-    matches_mat = np.array([
-        [m.distance for m in sorted(
-            [match for match in row], key=lambda x: x.trainIdx
-        )] for row in all_matches]
-    )
-    return (
-        np.sum(np.where(matches_mat < DISTANCE_TH, 1, 0).sum(axis=0) != 0) /
-        len_zwd_inst_features
-    )
+print("work on train")
 
-def zwd_whole_combine(inst):
+for inst in flatten_inst_arary:
     for zwd, zwd_inst_list in zip(range(1, 13), zwd_inst_mat):
-        prop_matched_list = map(zwd_inst_match, zwd_inst_list)
+        prop_matched_list = []
+        for zwd_inst in zwd_inst_list:
+            # print(i)
+            if zwd_inst.desc_list is None:
+                # print("{} of zwd({}) has no features".format(zwd_inst.ix, zwd_inst.zwd))
+                prop_matched_list.append(0)
+                continue
+            len_zwd_inst_features = len(zwd_inst.desc_list)
+            all_matches = flann.knnMatch(inst.desc_list, zwd_inst.desc_list, k=len_zwd_inst_features)
+            matches_mat = np.array([
+                [m.distance for m in sorted(
+                    [match for match in row], key=lambda x: x.trainIdx
+                )] for row in all_matches]
+            )
+
+            prop_matched_list.append(
+                np.sum(np.where(matches_mat < DISTANCE_TH, 1, 0).sum(axis=0) != 0) / len_zwd_inst_features
+            )
+
+        # write match result to data fame
         prop_matched_list.sort(reverse=True)
-        # black magic, count index position
-        top_start_ix = (zwd - 1) * TOP_K + 1
-        top_end_ix = zwd * TOP_K
-        mean_ix = 12 * TOP_K + zwd
-        df_sift_train_out.ix[
-            inst.ix, top_start_ix:top_end_ix
-        ] = prop_matched_list[:TOP_K]
-        df_sift_train_out.ix[inst.ix, mean_ix] = np.mean(prop_matched_list)
+        df_sift_train_out.ix[inst.ix, "z{}_top1".format(zwd):"z{}_top{}".format(zwd, TOP_K)] = prop_matched_list[:TOP_K]
+        df_sift_train_out.ix[inst.ix, "z{}_mean".format(zwd)] = np.mean(prop_matched_list)
 
-DISTANCE_TH = 250
-map(zwd_whole_combine, flatten_inst_arary)
 
-CSV_SIFT_TRANSFORM = "dataset/train_60x60_grey_SIFT.csv"
-df_sift_train_out.to_csv(CSV_SIFT_TRANSFORM, index=False)
+print("work on test")
+
+for inst in flatten_test_inst_arary:
+    for zwd, zwd_inst_list in zip(range(1, 13), zwd_inst_mat):
+        prop_matched_list = []
+        for zwd_inst in zwd_inst_list:
+            # print(i)
+            if zwd_inst.desc_list is None:
+                # print("{} of zwd({}) has no features".format(zwd_inst.ix, zwd_inst.zwd))
+                prop_matched_list.append(0)
+                continue
+            len_zwd_inst_features = len(zwd_inst.desc_list)
+            all_matches = flann.knnMatch(inst.desc_list, zwd_inst.desc_list, k=len_zwd_inst_features)
+            matches_mat = np.array([
+                [m.distance for m in sorted(
+                    [match for match in row], key=lambda x: x.trainIdx
+                )] for row in all_matches]
+            )
+
+            prop_matched_list.append(
+                np.sum(np.where(matches_mat < DISTANCE_TH, 1, 0).sum(axis=0) != 0) / len_zwd_inst_features
+            )
+
+        # write match result to data fame
+        prop_matched_list.sort(reverse=True)
+        df_sift_test_out.ix[inst.ix, "z{}_top1".format(zwd):"z{}_top{}".format(zwd, TOP_K)] = prop_matched_list[:TOP_K]
+        df_sift_test_out.ix[inst.ix, "z{}_mean".format(zwd)] = np.mean(prop_matched_list)
+
+
+CSV_SIFT_TRANSFORM_TRAIN = "dataset/train_60x60_grey_SIFT.csv"
+CSV_SIFT_TRANSFORM_NEWTEST = "dataset/newtest_60x60_grey_SIFT.csv"
+df_sift_train_out.to_csv(CSV_SIFT_TRANSFORM_TRAIN, index=False)
+df_sift_test_out.to_csv(CSV_SIFT_TRANSFORM_NEWTEST, index=False)
