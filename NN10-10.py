@@ -128,10 +128,9 @@ t1 = time.time()
 
 
 # report
-report = NN_Report()
-print(report)
-filename = "NN%sn%s" % (str(NROWS), "x".join([str(nn) for nn in N_NEURAL]))
 predictedVals2Raw = [y+1 for y in answerlist]
+report = NN_Report()
+filename = "NN%sn%s" % (str(NROWS), "x".join([str(nn) for nn in N_NEURAL]))
 with open(filename+".txt", "w+") as f:
     f.writelines("[predicted y]")
     f.write(str(predictedVals2Raw)) # because of Y=Y-1 before
@@ -140,7 +139,7 @@ with open(filename+".txt", "w+") as f:
     f.writelines("\n[Total time]\n")
     f.writelines(str(t1-t0))
 NetworkWriter.writeToFile(n, filename+".xml")
-
+print(report)
 
 
 ####################################################
