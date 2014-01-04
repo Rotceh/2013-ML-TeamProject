@@ -32,7 +32,22 @@ class ImageData(models.Document):
     def __unicode__(self):
         return "[image %s / class %s / %s / %s]" % (self.ix, self.class_id, self.sift_desc_id, self.parsing_status)
 
-
+    
+    
+    
+    
+class NewMatchingScores(models.Document):
+    ix1 = models.IntField()
+    c1 = models.IntField()
+    ix2 = models.IntField()
+    c2 = models.IntField()
+    score = models.FloatField()
+    
+    def __unicode__(self):
+        return "[image1 %s (%s) / image2 %s (%s) / score %s ]" % (self.ix1, self.c1, 
+                                                                  self.ix2, self.c2,
+                                                                  self.score)
+        
 
 
 
@@ -126,6 +141,45 @@ def get_sift_descriptors(iws):
     
 
 
+def get_sift_descs(im_data):
+    print "im_data = ",im_data
+    _im_data = get_sift_descriptors.AsyncResult(im_data.sift_desc_id)
+    return _im_data
+
+@celery.task(ignore_result = True)
+def compute_two_image_matching_scores(img1_data, img2_data):
+    xx = img2_data
+    one_ix_data = img1_data
+    
+    norm = cv2.NORM_L2
+    bfmatcher = cv2.BFMatcher(norm)
+    
+    MATCH_DIST_UPPER_BOUND = 300    
+    
+    
+    # Match descriptors.
+    matches = bfmatcher.match(np.array(get_sift_descs(xx).info),
+                              np.array(get_sift_descs(one_ix_data).info))
+    
+    print matches
+    print "len(matches) = ",len(matches)
+    filtered_matches = [x for x in matches if x.distance <= MATCH_DIST_UPPER_BOUND]
+    print "len(filtered_matches) = ",len(filtered_matches)
+    
+    
+    matching_score = 0 if len(matches) == 0 else float(len(filtered_matches)) / float(len(matches))
+    
+    print "matching_score = ",matching_score
+    
+    
+    score_data, created = NewMatchingScores.objects.get_or_create(ix1 = one_ix_data.ix, 
+                                                                  c1 = one_ix_data.class_id,
+                                                                  ix2 = xx.ix, 
+                                                                  c2 = xx.class_id)
+    score_data.score = matching_score
+    score_data.save()
+
+    print "score_data = ",score_data
 
 
 

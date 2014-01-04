@@ -77,7 +77,7 @@ if __name__ == '__main__':
     print "kp = ", kp
     print len(kp)
     print dir(kp[0])
-    print kp[0].__dict__() 
+    #print kp[0].__dict__() 
     
     print "desc = ", desc
     
@@ -89,6 +89,7 @@ if __name__ == '__main__':
     
 
     # Match descriptors.
+    print "type(desc) = ",type(desc)
     matches = bfmatcher.match(desc,desc1)
     
     print "matches = ",matches
