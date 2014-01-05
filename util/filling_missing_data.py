@@ -22,18 +22,20 @@ if __name__ == '__main__':
 
     import pandas as pd
 
-    CSV_TRAIN = "../dataset/train_zero_60x60.csv"
+    CSV_TRAIN = "../dataset/train_zero_60x60.csv" #"../dataset/train_zero_60x60.csv"
     df_part = pd.read_csv(CSV_TRAIN, nrows=6000).fillna(0)
-    grouped = df_part.groupby("y")
-
-    _filled_data = [add_missing_data_with_group_mean(one_group_label,one_group) for one_group_label,one_group in grouped ]
-
-    filled_data = _filled_data[0]
-
-    for one_data in _filled_data[1:]:
-        filled_data = np.r_[filled_data, one_data]
-
-    print filled_data
+#    grouped = df_part.groupby("y")
+#
+#    _filled_data = [add_missing_data_with_group_mean(one_group_label,one_group) for one_group_label,one_group in grouped ]
+#
+#    filled_data = _filled_data[0]
+#
+#    for one_data in _filled_data[1:]:
+#        filled_data = np.r_[filled_data, one_data]
+#
+#    print filled_data
+    
+    filled_data = df_part.values 
 
     X = filled_data[:,1:]
     Y = filled_data[:,0]

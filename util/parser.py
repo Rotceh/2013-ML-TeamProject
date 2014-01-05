@@ -5,9 +5,9 @@ def parse_line(line_txt):
     ==========
     line_txt: str
     an entry in pure text, ending WITHOUT '\\n'"""
-    y, *x_str = line_txt.split(' ')
-    x_list = [x.split(":") for x in x_str]
-    return y, x_list
+    line_splitted = line_txt.split(' ')
+    x_list = [x.split(":") for x in line_splitted[1:]]
+    return line_splitted[0], x_list
 
 
 def dat_parser(dat_path, line_num=0, skip=0):
