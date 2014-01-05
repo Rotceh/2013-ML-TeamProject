@@ -7,6 +7,7 @@ View(training_df[,-1])
 rf_model <- randomForest(y ~ ., data=training_df,ntree=2000, mtry = 30, importance=TRUE,proximity=TRUE)
 
 testing_df_pred = predict(rf_model,testing_df)
-write.csv(testing_df_pred,file="output_try_rf.csv", quote = FALSE,row.names = FALSE)
+sign_newtest_60x60_grey_pred = predict(rf_model,sign_newtest_60x60_grey[,-1])
+write.csv(sign_newtest_60x60_grey_pred,file="output_newest_rf.csv", quote = FALSE,row.names = FALSE)
 
 save(rf_model, file="rf_model_default.RData")
