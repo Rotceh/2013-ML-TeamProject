@@ -5,7 +5,7 @@ Created on Jan 5, 2014
 '''
 
 from bows_celery.tasks import *
-
+import random
 
 
 
@@ -29,10 +29,17 @@ for one_predict_job in ImageData.objects(class_id = 0):
     for one_class in all_classes:
     
         one_class_all_data = ImageData.objects(class_id = one_class)
+        
+        print " len(one_class_all_data) = ",len(one_class_all_data)
+        
+        sample_data = random.sample(one_class_all_data, 200)
+        
+        print "sample_data = ",sample_data
             
             #one_class_all_data = ImageData.objects(ix = 22)
             
-        for xx in one_class_all_data:
+        #for xx in one_class_all_data:
+        for xx in sample_data:
             
                 
             
