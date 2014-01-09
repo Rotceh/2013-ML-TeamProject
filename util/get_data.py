@@ -58,12 +58,16 @@ def get_new_suite(suite_name="60x60grey"):
     Parameters
     ==========
     suite_name : "60x60grey", str
-        expect "60x60grey"
+        expect "raw", "60x60grey"
     """
 
     norm_suite_name = suite_name.lower()
 
-    if norm_suite_name == "60x60grey":
+    if norm_suite_name == "raw":
+        CSV_TRAIN = "dataset/train_na2zero.csv"
+        CSV_LABEL_TEST = "dataset/test_na2zero.csv"
+        CSV_NEW_TEST = "dataset/newtest_na2zero.csv"
+    elif norm_suite_name == "60x60grey":
         CSV_TRAIN = "dataset/train_60x60_grey.csv"
         CSV_LABEL_TEST = "dataset/test_60x60_grey.csv"
         CSV_NEW_TEST = "dataset/newtest_60x60_grey.csv"
