@@ -16,20 +16,29 @@ def get_train_test_suite(suite_name="raw"):
     Parameters
     ==========
     suite_name : "raw", suite
-        expect "raw", "60x60", "60x60grey", "60x60addmean"
+        expect "raw", "60x60", "60x60grey", "60x60addmean",
+               "60x60grey_th250", "60x60grey_th300"
     """
-    if suite_name.lower() == "raw":
+    norm_suite_name = suite_name.lower()
+
+    if norm_suite_name == "raw":
         CSV_TRAIN = CSV_RAW_TRAIN
         CSV_TEST = CSV_RAW_TEST
-    elif suite_name.lower() == "60x60":
+    elif norm_suite_name == "60x60":
         CSV_TRAIN = CSV_60x60_TRAIN
         CSV_TEST = CSV_60x60_TEST
-    elif suite_name.lower() == "60x60grey":
+    elif norm_suite_name == "60x60grey":
         CSV_TRAIN = CSV_60x60grey_TRAIN
         CSV_TEST = CSV_60x60grey_TEST
-    elif suite_name.lower() == "60x60addmean":
+    elif norm_suite_name == "60x60addmean":
         CSV_TRAIN = CSV_60x60addmean_TRAIN
         CSV_TEST = CSV_60x60_TEST
+    elif norm_suite_name == "60x60grey_th250":
+        CSV_TRAIN = "dataset/train_60x60_grey_SIFT_top150_distth250.csv"
+        CSV_TEST = "dataset/test_60x60_grey_SIFT_top150_distth250.csv"
+    elif norm_suite_name == "60x60grey_th300":
+        CSV_TRAIN = "dataset/train_60x60_grey_SIFT_top150_distth300.csv"
+        CSV_TEST = "dataset/test_60x60_grey_SIFT_top150_distth300.csv"
     else:
         raise ValueError(
             "Unexpected suite_name: {}, cannot handle.".format(suite_name)
