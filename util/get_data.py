@@ -79,7 +79,7 @@ def get_new_suite(suite_name="60x60grey"):
     df_train = pd.concat([
         pd.read_csv(CSV_TRAIN),
         pd.read_csv(CSV_LABEL_TEST)
-    ])
+    ]).reset_index(drop=True)
     df_test = pd.read_csv(CSV_NEW_TEST)
 
     train_Y = df_train.y
