@@ -1,0 +1,68 @@
+\documentclass[12pt,a4paper]{article} %title page
+\usepackage[margin = 2cm]{geometry}
+
+
+\usepackage{titletoc}
+\usepackage[pagestyles]{titlesec}
+\usepackage[no-math]{fontspec} 
+
+%加這個就可以設定字體
+\usepackage[CJKnumber, CJKchecksingle]{xeCJK} 
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+
+\usepackage{paralist} % enhanced list environment
+\usepackage{textcomp} % for including symbols
+\usepackage{multicol} 
+\usepackage{multirow}
+\usepackage{threeparttable} %add footnote under tables
+\usepackage{booktabs, tabularx} %extend control of width of columns 
+%\usepackage{warpcol}%for decimal points alignment in tables
+
+
+% packages about math
+\usepackage{amssymb, amsmath, mathcomp} 
+
+%for figs
+\usepackage{placeins} % to flush all the floats before
+\usepackage{graphicx}
+\usepackage{wrapfig} %控制圖繞文 
+\usepackage{float} % controlling the place of figure
+\restylefloat{figure}
+
+% for caption
+\usepackage{caption, subcaption}
+\usepackage{hyperref}
+
+% for Reference
+\usepackage[square, numbers, sort&compress]{natbib}
+\usepackage[page,titletoc]{appendix} %toc for Appendices
+
+
+%讓中英文字體分開設置
+%設定中文的字型，可以直接輸入系統裡有的字型
+\setCJKmainfont[BoldFont=DFHei Std W7]{DFHei Std W5}
+\newCJKfontfamily{\kai}[BoldFont=DFKaiShu Std W7]{DFBiaoKaiShu Std W5}
+\setmonofont[Mapping=tex-text]{Inconsolata}
+%\setromanfont[Mapping=tex-text,BoldFont=Adobe Caslon Pro Bold]{Adobe Caslon Pro}
+\setromanfont[Mapping=tex-text,BoldFont=Adobe Garamond Pro Bold]{Adobe Garamond Pro}
+\setsansfont[Mapping=tex-text]{FuturaStd-Medium}
+\newfontfamily{\optima}{OptimaLTStd}
+
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+%上面這二行，中文才能自動換行
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 	% Horizontal rule
+\newcommand{\nonumsubsec}[1]{\phantomsection \addcontentsline{toc}{subsection}{#1} \subsection*{\optima #1}}
+
+\renewcommand{\thesection}{\Roman{section}}
+\titleformat{\section}{\Large\bfseries}{\thesection.}{0.5em}{}
+\renewcommand\figurename{圖}
+\renewcommand\tablename{表}
+%\renewcommand\lstlistlistingname{List of Source Codes}
+%\renewcommand\lstlistingname{Code}
+
+%\newpagestyle{main}{\sethead{\small\kai\sectiontitle}{}{} \setfoot{}{\thepage}{}\headrule}
+\newpagestyle{main}{\sethead{}{}{} \setfoot{}{\thepage}{}}
+
+\renewcommand{\today}{\number\year 年 \number\month 月 \number\day 日}

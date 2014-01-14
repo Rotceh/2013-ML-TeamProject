@@ -1,0 +1,28 @@
+%% Short-keys for easy typing
+\newcommand{\figref}[1]{圖~\ref{#1}}
+\newcommand{\tabref}[1]{表~\ref{#1}}
+
+\newcommand{\scfi}[2] {\ensuremath{#1 \times 10^{#2}}}
+\renewcommand{\t}[1]{\text{#1}}
+\newcommand{\tk}{\text{k}}\newcommand{\tm}{\text{m}}
+\newcommand{\tn}{\text{n}}\newcommand{\tM}{\text{M}}
+
+\newcommand{\insertfig}[4]{\begin{figure}[H]
+	\begin{center}
+	\includegraphics[width = #2\textwidth]{#1}
+	\caption{#3}\label{#4}
+	\end{center}\end{figure}}
+\newcommand{\insertfigx}[5]{\begin{figure}[#5]
+	\begin{center}
+	\includegraphics[width = #2\textwidth]{#1}
+	\caption{#3}\label{#4}
+	\end{center}\end{figure}}
+
+\newcommand{\inserttable}[1]{
+	\begin{table}[H]\vspace{-5pt}\begin{center}
+	\input{#1}\vspace{-10pt}\end{center}\end{table}\vspace{-10pt}}
+\newcommand{\inserttablex}[3]{
+	\begin{table}[H]\begin{center}\caption{#2}\vspace{-10pt}\label{#3}
+	\input{#1}\end{center}\vspace{-10pt}\end{table}}
+
+%% end short-keys
