@@ -5,363 +5,46 @@
 \begin{table}[H]\centering\begin{threeparttable}
 \input{#1}\end{threeparttable}\end{table}}
 
-\usepackage{mathabx}
-%\pagestyle{main}
+\pagestyle{main}
 \begin{document}
 %\setlength{\parindent}{0cm}
-\setlength{\baselineskip}{1.5em}
+\setlength{\baselineskip}{1.75em}
 \setlength{\parskip}{0.5em}
 
+%%%%%% 抬頭 %%%%%%
+\thispagestyle{empty}
 \begin{center}
-{\optima\LARGE Machine Learning~HW1}\\[0.5em]
-電機五 王亮博 B98901114
+{\optima\LARGE Machine Learning Final Project}\\[1em]
+電機五~王亮博~B98901114 \\
+經研二~顏嘉儀~R01323019 \\
+xxx 彭菘瑋 xxxxxxxxx
 \end{center}
-%%%%%% 正文 %%%%%%
-\subsection*{p1. [a]}
-\begin{enumerate}[(i)]
-\item 可以用明確簡單的演算法來判斷是否為質數。例如檢查比 $\sqrt{x}$ 小的所有整數能否整除 $x$。
-\item[(iii)] 存在明確的物理法則來決定一個物體落下的時間 $t = \sqrt{2h/g}$
-\end{enumerate}
-其餘的情況都很適合使用 Machine Learning。
 
-\subsection*{p2. [a]}
-把使用者過去的評價視為 label，根據這些資訊對尚未評價的書籍去作 labeling，並推薦那些預測評價較好的書籍。故是 supervised learning。
+%%%%% Workflow %%%%%%
+\section{整理流程簡介}
+基本上我們這組主要專注在 feature 的轉換與選擇，一開始的想法是想透過選出比較有意義的 feature，這樣也許用簡單的 model，例如 linear regression 就可以獲得不錯的準確度。很可惜的是從結果來說我們目前用的幾個方法都並沒有非常顯著的改善。在最後也會提出我們的推論，以及未來可以改進的方向。
 
-\subsection*{p3. [c]}
-我們事先並不知道持卡者哪些購買行為是「尋常」與「不尋常」，即我們沒有這樣 label 的資訊，故為一種 unsupervised learning。
+\figref{fig:workflow-overview} 所示即為本次整體的處理流程，能分成 Feature Selection 以及 Model Selection 兩大部份。透過 feature selection 之後，我們可以得到不同種方法產生的多個 feature space。之後在 Train model 時，就可以從這些 feature 中選出一部份來 train 我們的 model。
 
-\subsection*{p4. [b]}
-模仿自然的學習，例如我們可以給機器一個節奏與曲調，並請機器產生音高的時間序列。這樣的時間序列 $y_n$ 不一定能稱為「音樂」（不符合樂理，樂句很奇怪），人可以給予獎勵說哪些序列比較好聽（$\tilde{y_n}$）。此為一種 reinforcement learning。
+由於我們選用的 feature 可能會牽涉到高維度的轉換， $v_{dc}$ 的增加會讓我們有 overfitting 的問題，所以我們對此有兩個可以解決的方向：
+在 model 選擇上，我們會盡量選擇 $v_{dc}$ 較低的演算法，例如 SVM、有 regularization 的 regression。其次為盡量減少最後選用 feature 的數目，可以考慮用 PCA 等方向降維。比較可惜的是，因為時間的關係，我們還沒有做到減少 feature 選用；此外，我們在 feature 轉換中，「Bag-of-Words」的方法尚未實作出，會在下文繼續做相關的說明。
 
-\subsection*{p5. [d]}
-一個帳戶持有者的借貸上限，基本上決定於一個人的償債能力，可以說大致上與其現帳戶存款成正比。存款越多，貸款上限就越高。銀行可以使用一個簡單的公式來決定借貸上限（例如：$\text{上限} = \text{存款} \times 60\%$）。故本問題不必使用到機器學習。
+而在 Model Selection 的部份，SVM 類我們使用 cross valdiation 的方式，找出最佳的參數組合；在 Neural Network (NN) 設計我們同樣使用 cross validation 來去判斷如何調整我們 NN 的層數、node 數等。最後，我們比較這些 model 中找出一個在 validation 中表現最好重新以全部的資料 train，並上傳結果。
 
-\subsection*{p6. [d]}
-\[
-E_{OTS}(g, f) = \frac1L\sum^L_{l=1} \left\ldbrack g(\mathbf{x}_{N+l}) \neq f(\mathbf{x}_{N+l}) \right\rdbrack 
-    = \frac1L\sum^L_{l=1} \left\ldbrack g(\mathbf{x}_{N+l}) \neq 1 \right\rdbrack,
-\]
-which 
-\[  
-\sum^L_{l=1} \left\ldbrack g(\mathbf{x}_{N+l}) \neq 1 \right\rdbrack = \text{\# evens between } (N, N+L].
-\]
+\insertfigx{workflow/overview}{0.5}{整體處理流程}{fig:workflow-overview}{htb}
 
-We claim that \# evens between $(N, N+L]$ equals to $\left\lfloor \frac{N+L}2\right\rfloor - \left\lfloor \frac{N}2\right\rfloor$. It can be shown by
-given $m, n\in \mathbb{N}, m > n$, parity of $N + L$ and $N$ falls into the following 4 cases:
+\section{Feature Selection}
+\subsection*{60x60 Resize}
+\subsection*{SIFT Intro}
+\subsection*{SIFT Datawise Pair Match}
+\subsection*{SIFT BoW Cluster}
 
-\begin{table}[H]
-\centering
-\begin{threeparttable}
-	\begin{tabular}{cccc}
-		\toprule
-		$N+L$ 	& $N$  	& \# evens in $(N, N+L]$	& $\left\lfloor \frac{N+L}2\right\rfloor - \left\lfloor \frac{N}2\right\rfloor$ \\
-		\midrule
-		$2m$ & $2n$ & $m-n$ & $m-n$\\
-		$2m+1$ & $2n$ & $m-n$ & $m-n$\\
-		$2m$ & $2n+1$ & $m-n$ & $m-n$\\
-		$2m+1$ & $2n+1$ & $m-n$ & $m-n$\\
-		\bottomrule
-	\end{tabular}
-\end{threeparttable}
-\end{table}
+\section{Model Selection}
+\subsection*{SVM}
+\subsection*{Neural Network}
 
-Thus
-\[
-E_{OTS}(g, f) = \frac1L \left(\left\lfloor \frac{N+L}2\right\rfloor - \left\lfloor \frac{N}2\right\rfloor\right).
-\]
+\section{Performance Comparison}
 
+\section{Conclusion}
 
-\subsection*{p7. [c]}
-First we should show that given $\mathbf{x}_n = x_1, x_2, \dotsc, x_n$, the maximum number of different $f(\mathbf{x}_n)$s is $2^n$ by mathematical induction. Starting with $n = 1$, there are two $f$s,
-
-\begin{table}[H]
-\centering
-\begin{tabular}{c|c|c}
-        & $f_1$ & $f_2$\\
-\hline
-$x_1$   & $\circ$ & $\times$ 
-\end{tabular}
-\end{table}
-
-Assume that at $n=k$ the statement holds true, so there are maximum $2^k$ possible $f$s. Given $n=k+1$, we can construct distinct $2^{k}$ $f$s with $f(x_{k+1}) = \circ$ and another $2^{k}$ $f$s with $f(x_{k+1}) = \times$, which is guaranteed by the case $n = k$. Thus we can construct maximally $2^{k+1}$ different $f$s and we proof the statement.
-
-Now we want to construct all possible $f\colon\mathcal{X}\to\mathcal{Y}$ such that $f(\mathbf{x}_n) = y_n, \forall (x_n, y_n) \in \mathcal{D}$. It means outputs of $f(x_1), \dotsc, f(x_N)$ have been fixed. So now we want to construct as many different output of $f(x_{N+1}), \dotsc, f(x_{N+L})$ as possible. By the previous proof we can construct maximally $2^L$ different $f$s.
-
-\subsection*{p8. [a], [d]}
-We will prove  $E_{OTS}(g, f) = \frac{k}{L}$ is ${L \choose k}$ by mathematical induction. Given $L$ for case $k=0$, $\overbrace{\circ\circ\circ\dotsm\circ}^{\text{total length} L}$ with total 0 $\times$s has only $1 = {L \choose 0}$ possibility. Assume the statement holds true for case $k = m$. For $k = m+1$, each $\overbrace{\circ\times\circ\dotsm\times\circ}^{\text{length } L, m+1 \times\text{s}}$ falls into either two cases:
-\begin{align*}
-\circ&\overbrace{\circ\times\circ\circ\dotsm\times\circ}^{\text{length } L-1, m+1 \times\text{s}} \\
-\times&\overbrace{\circ\times\circ\circ\dotsm\times\circ}^{\text{length } L-1, m \times\text{s}}
-\end{align*}
-Each case has ${L-1 \choose m+1}$ and ${L-1 \choose m}$ different $f$s respectively. So the total number of $f$s is
-\[
-{L-1 \choose m+1} + {L-1 \choose m} = {L \choose m+1}.
-\]
-Hence by mathematical induction the statement holds true for $0 \leq k \leq L$.
-
-For [c] and [d] we will first prove
-\[
-	\sum^{L}_{k=0} {L \choose k} = 2^L.
-\]
-Case $L=1$,
-\[
-    \sum^1_{k=0} {1 \choose k} = 1 + 1 = 2 = 2^1.
-\]
-Assume the statement holds true for $L = l$. For case $L = l+1$,
-\begin{align*}
-\sum^{l+1}_{k=0}{l+1 \choose k} &= \sum^{l}_{k=1}{l+1 \choose k} + {l+1 \choose l+1} + {l+1 \choose 0}\\
-    &= 2 +  \sum^{l}_{k=1}{l\choose k} + \sum^{l}_{k=1}{l\choose k-1} \\
-    &= 2 + \left(2^l - {l\choose 0}\right) + \sum^{l-1}_{j=0}{l\choose j} \\
-    &= 2 + \left(2^l - 1\right) + \sum^{l}_{j=0}{l\choose j} - {l\choose l} \\
-    &=2 + 2^l -1 + 2^l -1 \\
-    &= 2^{l+1}
-\end{align*}
-Thus it is proved by mathematical induction.
-
-Then we are going to prove that
-\[
-    \sum^{L}_{k=1}\frac{k}{L}{L\choose k} = 2^{L-1}.
-\]
-For $L = 2$,
-\[
-    \sum^{2}_{k=1}\frac{k}{2}{2\choose k} = \frac12{2\choose 1} + \frac22{2\choose 2} = 2 = 2^{2-1}.
-\]
-Assume the statement holds true for $L = l$. For case $L = l+1$,
-\begin{align*}
-\sum^{l+1}_{k=1}\frac{k}{l+1}{l+1\choose k}
-&=\sum^{l}_{k=1}\frac{k}{l+1}{l+1\choose k} + \frac{l+1}{l+1}{l+1\choose l+1}\\
-&=\sum^{l}_{k=1}\left[\frac{k}{l+1}\left({l\choose k} + {l\choose k-1}\right)\right] + 1\\
-&=\frac{l}{l+1}\sum^{l}_{k=1}\frac{k}{l} {l\choose k} + \sum^{l}_{k=1}\frac{k}{l+1} {l\choose k-1} + 1\\
-&=\frac{l}{l+1}2^{l-1} + 1 
-    + \sum^{l}_{k=1}\frac{1}{l+1}{l\choose k-1} 
-    + \sum^{l}_{k=1}\frac{k-1}{l+1}{l\choose k-1}\\
-&=\frac{l}{l+1}2^{l-1} + 1 
-    + \frac1{l+1}\sum^{l-1}_{j=0}{l\choose j} 
-    + \frac{l}{l+1}\sum^{l-1}_{j=0}\frac{j}{l}{l\choose j}\\
-&=\frac{l}{l+1}2^{l-1} + 1
-    + \frac1{l+1}\left(2^l - 1\right)
-    + \frac{l}{l+1}\left(2^{l-1} - 1\right)
-= 2^l
-\end{align*}
-Thus the statement is proved by mathematical induction. Finally the expected OTS can be computed as
-\[
-\mathbb{E}_f\{E_{OTS}(g, f)\} 
-    = \dfrac{\sum^{L}_{k=1}\frac{k}{L}{L\choose k}}{2^L} = \dfrac{2^{L-1}}{2^L} 
-    = \dfrac12.
-\]
-
-\subsection*{p9. [a]}
-Let $Y = 10\nu$, then $Y$ is a random variable following $Binomial(10, \mu)$. Given $\mu = 0.5$,
-\[
-    \mathbb{P}(Y=5) = {10\choose5}\mu^5(1-\mu)^5 = \frac{42\times6}{2^{10}} \approx 0.24.
-\]
-
-\subsection*{p10. [b]}
-Now $Y \sim Binomial(10, 0.9)$, so
-\[
-    \mathbb{P}(Y=9) = {10\choose9}\cdot0.9^9\cdot0.1^1 \approx 0.39.
-\]
-
-\subsection*{p11. [d]}
-\begin{align*}
-\mathbb{P}(\nu \leq 0.1) &= \mathbb{P}(10\nu \leq 1)\\
-	&= \mathbb{P}(Y\leq1)\\
-    &= \mathbb{P}(Y = 0 \cup Y=1)\\
-    &= {10\choose0}\cdot0.9^0\cdot0.1^{10} + {10\choose1}\cdot0.9^1\cdot0.1^9 \\
-    &\approx 9.1 \times 10^{-9}
-\end{align*}
-
-\subsection*{p12. [b]}
-$-\nu \geq -0.1$, $\mu - \nu \geq 0.8$. By Hoeffding's Inequality,
-\[
-    \mathbb{P}(|\mu - \nu| \geq 0.8) \leq 2\exp(-2\cdot0.8^2\cdot10) = 5.52 \times 10^{-6}
-\]
-
-\subsection*{p13. [b]}
-Only dice B or C has orange 1. So
-\begin{align*}
-\mathbb{P}(\text{5 orange 1s}) &= \mathbb{P}(\text{5 B or C})\\
-    &= \mathbb{P}(\text{5 B}) + \mathbb{P}(\text{5 C}) 
-        + \mathbb{P}(\text{4 B 1 C}) + \mathbb{P}(\text{3 B 2 C}) + \mathbb{P}(\text{2 B 3 C}) + \mathbb{P}(\text{1 B 4 C})\\
-        &= \dfrac{1 + 1 + {5 \choose 1} + {5 \choose 2} + {5 \choose 3} + {5 \choose 4}}{4^5}\\
-        &= \frac{32}{1024} = \frac8{256}
-\end{align*}
-
-\subsection*{p14. [c]}
-There are some cases that no number can have same color:
-\begin{enumerate}[(i)]
-    \item both A and B appears
-    \item both C and D appears
-\end{enumerate}
-Thus the probability can be rewritten as
-\begin{align*}
-\mathbb{P}(\text{some number is purely orange})
-&= \mathbb{P}(\text{only one type of dice appears})\\ 
-&\quad+ \mathbb{P}(\text{only A and C})\\
-&\quad+ \mathbb{P}(\text{only A and D})\\
-&\quad+ \mathbb{P}(\text{only B and C})\\
-&\quad+ \mathbb{P}(\text{only B and D})\\
-\end{align*}
-From the previous problem, we know that
-\[
-\mathbb{P}(\text{only one type of dice appears}) = 4 \times \frac1{4^5}
-\]
-\[
-\mathbb{P}(\text{only A and C}) = \mathbb{P}(\text{only A and D}) = \mathbb{P}(\text{only B and C}) = \mathbb{P}(\text{only B and D}) = \frac{30}{4^5}
-\]
-So $\mathbb{P}(\text{some number is purely orange}) = \dfrac{4 \times 1 + 4 \times 30}{1024} = \dfrac{31}{256}$
-
-\subsection*{Bonus 21}
-Since $y_{n(t)} \neq \text{sign}(\mathbf{w}^T_t\mathbf{x}_{n(t)})$, $y_{n(t)}\mathbf{w}^T_t\mathbf{x}_{n(t)} < 0$. We define $A = - y_{n(t)}\mathbf{w}^T_t\mathbf{x}_{n(t)}$, $A > 0$.
-
-\begin{align*}
-y_{n(t)}\mathbf{w}_{t+1}^T\mathbf{x}_{n(t)}
-&= y_{n(t)}\left(
-    \mathbf{w}_t + y_{n(t)}\mathbf{x}_{n(t)}\cdot\left\lfloor
-        \frac{A}{\|\mathbf{x}_{n(t)}\|^2} + 1
-    \right\rfloor\right)^T\mathbf{x}_{n(t)}\\
-&= \overbrace{y_{n(t)}\mathbf{w}_t^T\mathbf{x}_{n(t)}}^{-A} + 
-    [y_{n(t)}]^2\cdot\mathbf{x}_{n(t)}^T\left\lfloor
-        \frac{A}{\|\mathbf{x}_{n(t)}\|^2} + 1
-    \right\rfloor\mathbf{x}_{n(t)}\\
-&= -A + [y_{n(t)}]^2\|\mathbf{x}_{n(t)}\|^2\left\lfloor
-        \frac{A}{\|\mathbf{x}_{n(t)}\|^2} + 1
-    \right\rfloor\\
-    &=  -A + \overbrace{[y_{n(t)}]^2}^{1}\left\lfloor A + \|\mathbf{x}_{n(t)}\|^2 \right\rfloor\\
-\end{align*}
-
-Since for all $x$ we have the inequality $ x-1 < \lfloor x \rfloor \leq x$,
-\[
-y_{n(t)}\mathbf{w}_{t+1}^T\mathbf{x}_{n(t)}
-= -A + \left\lfloor A + \|\mathbf{x}_{n(t)}\|^2 \right\rfloor
-\geq -A + A + \|\mathbf{x}_{n(t)}\|^2 -1 = \|\mathbf{x}_{n(t)}\|^2 -1.
-\]
-
-Since we have defined $x_0 = 1$. Therefore, 
-\begin{align*}
-\|\mathbf{x}_{n(t)}\|^2
-&= \|(x_{0(t)}, x_{1(t)}, \dotsc, x_{n(t)})\|^2\\
-&= \sum_{i=0}^n x_{i(t)}^2 \geq x_{0(t)}^2 = 1
-\end{align*}
-
-Finally we have
-\[
-y_{n(t)}\mathbf{w}_{t+1}^T\mathbf{x}_{n(t)}
-\geq \|\mathbf{x}_{n(t)}\|^2 -1
-\geq 0
-\]
-\subsection*{Bonus 22}
-If the data set $\mathcal{D}$ is linear separable, there exists a perfect weight $\mathbf{w}_f$ such that
-\[
-    y_{n(t)} = \text{sign}(\mathbf{w}_f^T\mathbf{x}_{n(t)}) \text{ and }
-    y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)} > 0, \forall (\mathbf{x}_{n(t)}, y_{n(t)}) \in \mathcal{D}.
-\]
-For simplicity, we define $A(t) = -y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)}, A(t) > 0$. Then we are going to show that after an update (on finding a misclassification), we always have
-\[
-    \|\mathbf{w}_{t+1}\|^2 < \|\mathbf{w}_t\|^2  + \|\mathbf{x}_{n(t)}\| ^2.
-\]
-
-The proof is straight forward,
-\begin{align*}
-\|\mathbf{w}_{t+1}\|^2 
-&= \left\|
-    \mathbf{w}_t + y_{n(t)}\mathbf{x}_{n(t)}\left(\left\lfloor
-        \frac{A(t)}{\|\mathbf{x}_{n(t)}\|^2} + 1
-    \right\rfloor\right)^2
-\right\|^2\\
-&= \|\mathbf{w}_t\|^2 
-    + 2\overbrace{y_{n(t)}\mathbf{w}_t^T\mathbf{x}_{n(t)}}^{< 0}\overbrace{\left\lfloor\ldots\right\rfloor}^{> 0}
-    + \overbrace{y_{n(t)}^2}^{=1}\|\mathbf{x}_{n(t)}\|^2\left(\left\lfloor\ldots\right\rfloor\right)^2\\
-&< \|\mathbf{w}_t\|^2
-    + \|\mathbf{x}_{n(t)}\|^2\left(\left\lfloor
-        \frac{A(t)}{\|\mathbf{x}_{n(t)}\|^2} + 1
-    \right\rfloor\right)^2\\
-&= \|\mathbf{w}_t\|^2
-    + \left(\left\lfloor
-        \frac{A(t)}{\|\mathbf{x}_{n(t)}\|} + \|\mathbf{x}_{n(t)}\|
-    \right\rfloor\right)^2
-\end{align*}
-plus we always have the inequality $x-1 < \lfloor x \rfloor \leq x$,
-\begin{align*}
-\|\mathbf{w}_{t+1}\|^2 
-&< \|\mathbf{w}_t\|^2 + \left(\left\lfloor
-    \frac{A(t)}{\|\mathbf{x}_{n(t)}\|} + \|\mathbf{x}_{n(t)}\|
-\right\rfloor\right)^2\\
-&\leq \|\mathbf{w}_t\|^2 + \left(
-    \frac{A(t)}{\|\mathbf{x}_{n(t)}\|} + \|\mathbf{x}_{n(t)}\|
-\right)^2\\
-&= \|\mathbf{w}_t\|^2 + \frac{A(t)^2}{\|\mathbf{x}_{n(t)}\|^2} + \|\mathbf{x}_{n(t)}\|^2 + 2A(t)\\
-&< \|\mathbf{w}_t\|^2 + \|\mathbf{x}_{n(t)}\|^2
-\end{align*}
-
-If we start this modified PLA implementation from $\mathbf{w}_0 = 0$, after T updates,
-\begin{align*}
-\|\mathbf{w}_T\|^2 &< \|\mathbf{w}_{T-1}\|^2 + \|\mathbf{x}_{n(T-1)}\|^2\\
-\|\mathbf{w}_{T-1}\|^2 &< \|\mathbf{w}_{T-2}\|^2 + \|\mathbf{x}_{n(T-2)}\|^2\\
-&\ldots\\
-\|\mathbf{w}_{1}\|^2 &< \|\mathbf{w}_0\|^2 + \|\mathbf{x}_{n(1)}\|^2\\
-\Rightarrow \|\mathbf{w}_T\|^2 &< \sum^{T-1}_{t=0}\|\mathbf{x}_{n(t)}\|^2
-    \leq T \cdot \max_{t\in T}\|\mathbf{x}_{n(0)}\|^2
-\end{align*}
-
-So we have $\|\mathbf{w}_T\| < \sqrt{T} \cdot \max\limits_{t\in T}\|\mathbf{x}_{n(0)}\|$. Also, combining all update processes,
-\begin{align*}
-\mathbf{w}_f^T\mathbf{w}_T
-&= \mathbf{w}_f^T\mathbf{w}_{T-1} + y_{n(T-1)}\mathbf{w}_f^T\mathbf{x}_{n(T-1)}\left\lfloor
-    \frac{A(T-1)}{\|\mathbf{x}_{n(T-1)}\|^2} + 1
-\right\rfloor = \ldots \\
-&= \overbrace{\mathbf{w}_f^T\mathbf{w}_0}^{0} + \sum^{T-1}_{t=0} y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)} \left\lfloor
-    \frac{A(t)}{\|\mathbf{x}_{n(t)}\|^2} + 1
-\right\rfloor\\
-&= \sum^{T-1}_{t=0} y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)} \left\lfloor
-    \frac{A(t)}{\|\mathbf{x}_{n(t)}\|^2} + 1
-\right\rfloor\\
-&\geq T \cdot \min_{t \in T} y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)} \left\lfloor
-    \frac{A(t)}{\|\mathbf{x}_{n(t)}\|^2} + 1
-\right\rfloor\\
-&> T \cdot \min_{t \in T} y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)} \frac{A(t)}{\|\mathbf{x}_{n(t)}\|^2} = \text{const} \cdot T
-\end{align*}
-
-Combining these two inequality,
-\[
-\mathbf{w}_f^T\mathbf{w}_T > T \cdot \min_{t \in T} y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)} \frac{A(t)}{\|\mathbf{x}_{n(t)}\|^2}, \quad
-\|\mathbf{w}_T\| < \sqrt T \cdot \max_{t\in T}\|\mathbf{x}_{n(0)}\|,
-\]
-finally we have 
-\begin{align*}
-1 
-&\geq \frac{\mathbf{w}_f^T}{\|\mathbf{w}_f^T\|} \cdot \frac{\mathbf{w}_T}{\|\mathbf{w}_T\|}\\
-&> \frac{1}{\|\mathbf{w}_f^T\|} \cdot \frac{
-    T \cdot \min\limits_{t \in T} y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)} \dfrac{A(t)}{\|\mathbf{x}_{n(t)}\|^2}
-}{
-    \sqrt{T} \cdot \max\limits_{t\in T}\|\mathbf{x}_{n(0)}\|
-}\\
-&> \frac{1}{\|\mathbf{w}_f^T\|} \cdot \frac{
-    \min\limits_{t \in T} y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)} \dfrac{A(t)}{\|\mathbf{x}_{n(t)}\|^2}
-}{
-    \max\limits_{t\in T}\|\mathbf{x}_{n(t)}\|
-} \cdot \sqrt{T}
-\end{align*}
-thus
-\begin{align*}
-T
-&< \left[\frac{
-	\|\mathbf{w}_f^T\| \cdot \max\limits_{t \in T} \|\mathbf{x}_{n(t)}\|
-}{
-	\min\limits_{t \in T} 
-		\dfrac{y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)}}{\|\mathbf{x}_{n(t)}\|} 
-	\cdot 
-		\dfrac{y_{n(t)}\mathbf{w}_{n(t)}\mathbf{x}_{n(t)}}{\|\mathbf{x}_{n(t)}\|}
-}\right]^2\\
-&\leq \left[\frac{
-	\|\mathbf{w}_f^T\| \cdot \max\limits_{t \in \mathcal{D}} \|\mathbf{x}_{n(t)}\|
-}{
-	\min\limits_{t \in \mathcal{D}} 
-		\dfrac{y_{n(t)}\mathbf{w}_f^T\mathbf{x}_{n(t)}}{\|\mathbf{x}_{n(t)}\|} 
-	\cdot 
-		\dfrac{y_{n(t)}\mathbf{w}_{n(t)}\mathbf{x}_{n(t)}}{\|\mathbf{x}_{n(t)}\|}
-}\right]^2
-\end{align*}
-
-Therefore we have proven that number of updates $T$ has a upper bound for a given data set $\mathcal{D}$. 
 \end{document}
